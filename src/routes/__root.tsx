@@ -1,21 +1,21 @@
-import { createRootRoute, Link, Outlet } from "@tanstack/react-router";
+import { createRootRoute, Outlet } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 import "../index.css";
+import { useThemeStore } from "@/store/themeStore";
+import Header from "@/components/Header";
 
-const RootLayout = () => (
-  <>
-    <div className="p-2 flex gap-2 antialiased bg-red-200">
-      <Link to="/" className="active:font-bold">
-        Home
-      </Link>{" "}
-      <Link to="/about" className="[&.active]:font-bold">
-        About
-      </Link>
-    </div>
-    <hr />
-    <Outlet />
-    <TanStackRouterDevtools />
-  </>
-);
+const RootLayout = () => {
+
+  // move these later to component with theme toggle button
+  const theme = useThemeStore((state) => state.theme);
+  const setTheme = useThemeStore((state) => state.setTheme);
+  return (
+    <>
+      <Header />
+      <Outlet />
+      <TanStackRouterDevtools />
+    </>
+  );
+}
 
 export const Route = createRootRoute({ component: RootLayout });
