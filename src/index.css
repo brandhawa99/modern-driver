@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Noto+Serif:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
@@ -52,7 +53,7 @@
 }
 
 :root {
-  --background: oklch(1 0 0);
+  --background: oklch(.96 .01 85);
   --foreground: oklch(0.148 0.004 228.8);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.148 0.004 228.8);
@@ -87,7 +88,7 @@
 }
 
 .dark {
-  --background: oklch(0.148 0.004 228.8);
+  --background: oklch(0.12 0.015 85);
   --foreground: oklch(0.987 0.002 197.1);
   --card: oklch(0.218 0.008 223.9);
   --card-foreground: oklch(0.987 0.002 197.1);
@@ -129,5 +130,11 @@
   }
   html {
     @apply font-sans;
+  }
+  h1{
+    font-size: var(--text-2xl);
+  }
+  h2{
+    font-size: var(--text-xl);
   }
 }
