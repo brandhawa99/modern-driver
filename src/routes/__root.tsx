@@ -4,14 +4,13 @@ import "../index.css";
 import Header from "@/components/Header";
 
 const RootLayout = () => {
-
   return (
     <div className="antialiasing bg-[--background] text-[--text] min-h-screen flex flex-col">
-      < Header />
+      <Header />
       <Outlet />
       <TanStackRouterDevtools />
     </div>
   );
-}
+};
 
 export const Route = createRootRoute({ component: RootLayout });

@@ -7,16 +7,24 @@ export default function ThemeSelector() {
   const setTheme = useThemeStore((state) => state.setTheme);
   if (theme == "light") {
     return (
-      <Button asChild variant="ghost" className="hover:border-black transition-border transition-duration-800" onClick={() => setTheme("dark")}>
+      <Button
+        asChild
+        variant="ghost"
+        className="hover:border-black transition-border transition-duration-800"
+        onClick={() => setTheme("dark")}
+      >
         <MoonIcon size="48" />
       </Button>
-    )
-  }
-  else return (
-    <Button asChild variant="ghost" className="hover:border-black transition-border transition-duration-800" onClick={() => setTheme("light")}>
-      <SunIcon size="48" />
-    </Button>
-  )
-
-
+    );
+  } else
+    return (
+      <Button
+        asChild
+        variant="ghost"
+        className="hover:border-black transition-border transition-duration-800"
+        onClick={() => setTheme("light")}
+      >
+        <SunIcon size="48" />
+      </Button>
+    );
 }

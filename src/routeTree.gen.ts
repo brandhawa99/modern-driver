@@ -8,120 +8,120 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { Route as rootRouteImport } from './routes/__root'
-import { Route as GarageRouteImport } from './routes/garage'
-import { Route as AuctionRouteImport } from './routes/auction'
-import { Route as IndexRouteImport } from './routes/index'
-import { Route as ShowroomIndexRouteImport } from './routes/showroom/index'
-import { Route as ShowroomCardIdRouteImport } from './routes/showroom/$cardId'
+import { Route as rootRouteImport } from "./routes/__root";
+import { Route as GarageRouteImport } from "./routes/garage";
+import { Route as AuctionRouteImport } from "./routes/auction";
+import { Route as IndexRouteImport } from "./routes/index";
+import { Route as ShowroomIndexRouteImport } from "./routes/showroom/index";
+import { Route as ShowroomCardIdRouteImport } from "./routes/showroom/$cardId";
 
 const GarageRoute = GarageRouteImport.update({
-  id: '/garage',
-  path: '/garage',
+  id: "/garage",
+  path: "/garage",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const AuctionRoute = AuctionRouteImport.update({
-  id: '/auction',
-  path: '/auction',
+  id: "/auction",
+  path: "/auction",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+  id: "/",
+  path: "/",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const ShowroomIndexRoute = ShowroomIndexRouteImport.update({
-  id: '/showroom/',
-  path: '/showroom/',
+  id: "/showroom/",
+  path: "/showroom/",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const ShowroomCardIdRoute = ShowroomCardIdRouteImport.update({
-  id: '/showroom/$cardId',
-  path: '/showroom/$cardId',
+  id: "/showroom/$cardId",
+  path: "/showroom/$cardId",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
-  '/auction': typeof AuctionRoute
-  '/garage': typeof GarageRoute
-  '/showroom/$cardId': typeof ShowroomCardIdRoute
-  '/showroom/': typeof ShowroomIndexRoute
+  "/": typeof IndexRoute;
+  "/auction": typeof AuctionRoute;
+  "/garage": typeof GarageRoute;
+  "/showroom/$cardId": typeof ShowroomCardIdRoute;
+  "/showroom/": typeof ShowroomIndexRoute;
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
-  '/auction': typeof AuctionRoute
-  '/garage': typeof GarageRoute
-  '/showroom/$cardId': typeof ShowroomCardIdRoute
-  '/showroom': typeof ShowroomIndexRoute
+  "/": typeof IndexRoute;
+  "/auction": typeof AuctionRoute;
+  "/garage": typeof GarageRoute;
+  "/showroom/$cardId": typeof ShowroomCardIdRoute;
+  "/showroom": typeof ShowroomIndexRoute;
 }
 export interface FileRoutesById {
-  __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
-  '/auction': typeof AuctionRoute
-  '/garage': typeof GarageRoute
-  '/showroom/$cardId': typeof ShowroomCardIdRoute
-  '/showroom/': typeof ShowroomIndexRoute
+  __root__: typeof rootRouteImport;
+  "/": typeof IndexRoute;
+  "/auction": typeof AuctionRoute;
+  "/garage": typeof GarageRoute;
+  "/showroom/$cardId": typeof ShowroomCardIdRoute;
+  "/showroom/": typeof ShowroomIndexRoute;
 }
 export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/auction' | '/garage' | '/showroom/$cardId' | '/showroom/'
-  fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auction' | '/garage' | '/showroom/$cardId' | '/showroom'
+  fileRoutesByFullPath: FileRoutesByFullPath;
+  fullPaths: "/" | "/auction" | "/garage" | "/showroom/$cardId" | "/showroom/";
+  fileRoutesByTo: FileRoutesByTo;
+  to: "/" | "/auction" | "/garage" | "/showroom/$cardId" | "/showroom";
   id:
-    | '__root__'
-    | '/'
-    | '/auction'
-    | '/garage'
-    | '/showroom/$cardId'
-    | '/showroom/'
-  fileRoutesById: FileRoutesById
+    | "__root__"
+    | "/"
+    | "/auction"
+    | "/garage"
+    | "/showroom/$cardId"
+    | "/showroom/";
+  fileRoutesById: FileRoutesById;
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
-  AuctionRoute: typeof AuctionRoute
-  GarageRoute: typeof GarageRoute
-  ShowroomCardIdRoute: typeof ShowroomCardIdRoute
-  ShowroomIndexRoute: typeof ShowroomIndexRoute
+  IndexRoute: typeof IndexRoute;
+  AuctionRoute: typeof AuctionRoute;
+  GarageRoute: typeof GarageRoute;
+  ShowroomCardIdRoute: typeof ShowroomCardIdRoute;
+  ShowroomIndexRoute: typeof ShowroomIndexRoute;
 }
 
-declare module '@tanstack/react-router' {
+declare module "@tanstack/react-router" {
   interface FileRoutesByPath {
-    '/garage': {
-      id: '/garage'
-      path: '/garage'
-      fullPath: '/garage'
-      preLoaderRoute: typeof GarageRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/auction': {
-      id: '/auction'
-      path: '/auction'
-      fullPath: '/auction'
-      preLoaderRoute: typeof AuctionRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/showroom/': {
-      id: '/showroom/'
-      path: '/showroom'
-      fullPath: '/showroom/'
-      preLoaderRoute: typeof ShowroomIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/showroom/$cardId': {
-      id: '/showroom/$cardId'
-      path: '/showroom/$cardId'
-      fullPath: '/showroom/$cardId'
-      preLoaderRoute: typeof ShowroomCardIdRouteImport
-      parentRoute: typeof rootRouteImport
-    }
+    "/garage": {
+      id: "/garage";
+      path: "/garage";
+      fullPath: "/garage";
+      preLoaderRoute: typeof GarageRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/auction": {
+      id: "/auction";
+      path: "/auction";
+      fullPath: "/auction";
+      preLoaderRoute: typeof AuctionRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/": {
+      id: "/";
+      path: "/";
+      fullPath: "/";
+      preLoaderRoute: typeof IndexRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/showroom/": {
+      id: "/showroom/";
+      path: "/showroom";
+      fullPath: "/showroom/";
+      preLoaderRoute: typeof ShowroomIndexRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/showroom/$cardId": {
+      id: "/showroom/$cardId";
+      path: "/showroom/$cardId";
+      fullPath: "/showroom/$cardId";
+      preLoaderRoute: typeof ShowroomCardIdRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
   }
 }
 
@@ -131,7 +131,7 @@ const rootRouteChildren: RootRouteChildren = {
   GarageRoute: GarageRoute,
   ShowroomCardIdRoute: ShowroomCardIdRoute,
   ShowroomIndexRoute: ShowroomIndexRoute,
-}
+};
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
-  ._addFileTypes<FileRouteTypes>()
+  ._addFileTypes<FileRouteTypes>();
