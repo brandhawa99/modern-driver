@@ -9,5 +9,14 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    <script>
+      const stored = localStorage.getItem("theme-storage");
+      if (stored) {
+        const { state } = JSON.parse(stored);
+        if (state.theme === "dark") {
+          document.documentElement.classList.add("dark");
+        }
+      }
+    </script>
   </body>
 </html>

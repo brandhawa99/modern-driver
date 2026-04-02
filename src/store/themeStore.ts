@@ -1,6 +1,6 @@
 // src/stores/theme-store.ts
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
+import { createJSONStorage, persist } from "zustand/middleware";
 
 type Theme = "light" | "dark" | "system";
 
@@ -41,6 +41,7 @@ export const useThemeStore = create<ThemeState>()(
     }),
     {
       name: "theme-storage",
+      storage: createJSONStorage(() => localStorage),
     },
   ),
 );
