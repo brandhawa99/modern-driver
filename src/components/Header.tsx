@@ -2,8 +2,6 @@ import {
   CarIcon,
   GarageIcon,
   GavelIcon,
-  MoonIcon,
-  SunIcon,
 } from "@phosphor-icons/react";
 import { Link } from "@tanstack/react-router";
 import { Button } from "./ui/button";
@@ -38,7 +36,7 @@ export default function Header() {
                     <>
                       <Icon
                         weight={`${isActive ? "fill" : "regular"}`}
-                        className="!w-6 !h-6 shrink-0"
+                        className="w-6! h-6! shrink-0"
                       />
                       <span
                         className={cn(
