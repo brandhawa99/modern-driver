@@ -1,8 +1,4 @@
-import {
-  CarIcon,
-  GarageIcon,
-  GavelIcon,
-} from "@phosphor-icons/react";
+import { CarIcon, GarageIcon, GavelIcon } from "@phosphor-icons/react";
 import { Link } from "@tanstack/react-router";
 import { Button } from "./ui/button";
 import { cn } from "@/lib/utils";
