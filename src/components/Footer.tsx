@@ -19,11 +19,11 @@ export default function Footer() {
           <div className="flex gap-4 flex-col px-8">
             <div>
               <FooterLink to={"/"}>Home/</FooterLink>
-              <FooterLink to={"/"}>Auction/</FooterLink>
+              <FooterLink to={"/auction"}>Auction/</FooterLink>
             </div>
             <div>
-              <FooterLink to={"/"}>Showroom/</FooterLink>
-              <FooterLink to={"/"}>Garage/</FooterLink>
+              <FooterLink to={"/showroom"}>Showroom/</FooterLink>
+              <FooterLink to={"/garage"}>Garage/</FooterLink>
             </div>
             <div>
               <FooterLink to={"mailto:baltej.randhawa0@gmail.com"}>Contact/</FooterLink>
