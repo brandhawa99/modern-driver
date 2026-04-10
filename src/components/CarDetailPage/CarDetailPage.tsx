@@ -1,8 +1,12 @@
 import type { Car } from "@/data/cars";
-import { ArrowLeftIcon, PlusCircleIcon } from "@phosphor-icons/react";
-import { Link } from "@tanstack/react-router";
+import { ArrowLeftIcon, PlusCircleIcon, TrashIcon } from "@phosphor-icons/react";
+import { Link, useNavigate } from "@tanstack/react-router";
 import { Button } from "../ui/button";
 import { useGarageStore } from "@/store/garageStore";
+import { Badge } from "../ui/badge";
+import { toast } from "sonner";
+import { ImageSection } from "./ImageSection";
+import { CarSpecs } from "./CarSpecs";
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 function formatPrice(price: number) {
@@ -23,44 +27,15 @@ const conditionLabel: Record<Car["condition"], string> = {
   restored: "Restored",
 };
 
-// ─── Sub-components ───────────────────────────────────────────────────────────
-
-/** A single horizontal rule separating sections */
 function Rule() {
   return <hr className="border-none border-t border-border h-px bg-border" />;
 }
 
-/** Key / value row in the spec table */
-function SpecRow({ label, value }: { label: string; value: string }) {
-  return (
-    <div className="flex items-baseline justify-between py-4 border-b border-border last:border-0">
-      <span className="text-xs tracking-widest uppercase text-muted-foreground font-sans">
-        {label}
-      </span>
-      <span className="font-heading text-base text-foreground">{value}</span>
-    </div>
-  );
-}
-
-/** Thin badge — condition / auction / featured */
-function Tag({ children }: { children: React.ReactNode }) {
-  return (
-    <span className="inline-flex items-center border border-border px-2.5 py-0.5 text-[10px] tracking-widest uppercase text-muted-foreground font-sans">
-      {children}
-    </span>
-  );
-}
-
-// ─── Page ─────────────────────────────────────────────────────────────────────
 interface CarDetailPageProps {
-  car?: Car;
+  car: Car;
 }
 
 export function CarDetailPage({ car }: CarDetailPageProps) {
-  const garage = useGarageStore((state) => state.cars);
-  const addCar = (id: string) => {
-
-  }
   const tags = [
     conditionLabel[car.condition],
     car.isAuction && "Auction",
@@ -78,40 +53,52 @@ export function CarDetailPage({ car }: CarDetailPageProps) {
     ["Location", `${car.location} · ${car.countryCode}`],
   ];
 
+  // const garageIds = useGarageStore((state) => state.garageIds);
+
+  // const isInGarage = garageIds[carId]; 
+  const garageIds = useGarageStore((state) => state.garageIds)
+  const { addCar, removeCar } = useGarageStore();
+  const isInGarage = garageIds[car?.id]
+  const navigate = useNavigate()
+
+  function AddToGarage(carID: string, carMake: string, carModel: string): void {
+    addCar(carID)
+    toast("Car Added To Your Garage!", {
+      description: (<span className="text-foreground">{`${carMake} ${carModel}`}</span>),
+      action: {
+        label: "View",
+        onClick: () => { navigate({ to: "/garage" }) }
+      }
+    })
+
+  }
+
+  function RemoveFromGarage(carID: string, carMake: string, carModel: string): void {
+    removeCar(carID)
+    toast("Car Remove From Garage :(", {
+      description: (<span className="text-foreground">{`${carMake} ${carModel}`}</span>),
+      action: {
+        label: "Undo",
+        onClick: () => { addCar(carID) }
+      }
+    })
+  }
+
   return (
     <article className="min-h-screen bg-background text-foreground">
-
-      <section className="relative w-full h-[60vh] overflow-hidden mt-10 ">
-        {/* Blurred background */}
-        <img
-          src={car.image}
-          className="absolute inset-0 w-full h-full object-cover blur-2xl scale-110 opacity-60 "
-        />
-
-        {/* Foreground */}
-        <div className="relative z-10 mx-auto max-w-5xl h-full flex items-center">
-          <img
-            src={car.image}
-            className="w-full h-auto max-h-full object-contain"
-          />
-        </div>
-      </section>
-
-      {/* ── Content ────────────────────────────────────────────────────────── */}
+      <ImageSection image={car.image} />
       <div className="max-w-3xl mx-auto px-6 md:px-0 pb-32">
-
-        {/* ── Identity block ── */}
         <header className="pt-14 pb-12">
-
-          {/* Tags row */}
-          <div className="flex flex-wrap gap-2 mb-8">
-            <Button variant="default" className="group">
-              <Link to="/showroom" className="flex items-center gap-2 justify-center">
+          <div className="flex flex-wrap gap-2 mb-8 items-center justify-between">
+            <Button variant="link" className="group">
+              <Link to="/showroom" className="flex items-center gap-2 justify-center ">
                 <ArrowLeftIcon size={32} className="group-hover:-translate-x-1 transition-transform duration-300 " />
                 Go Back
               </Link>
             </Button>
-            {tags.map((t) => <Tag key={t}>{t}</Tag>)}
+            <div className="flex gap-2">
+              {tags.map((t) => <Badge variant="outline" className="p-2" key={t}>{t}</Badge>)}
+            </div>
           </div>
 
           {/* Make + model */}
@@ -153,34 +140,30 @@ export function CarDetailPage({ car }: CarDetailPageProps) {
 
           <div className="flex flex-col gap-3 md:items-end">
             <Button
-              className="w-full flex-1 py-3 px-8 uppercase text-sm cursor-pointer font-sans tracking-widest"
+              className="w-full flex-1 py-3 px-8 uppercase text-sm cursor-pointer font-sans"
             >
               {car.isAuction ? "Place Bid" : "Enquire"}
+
             </Button>
             <Button
-              variant="secondary"
-              className="w-full flex-1 py-3 px-8 uppercase text-sm cursor-pointer font-sans tracking-widest"
+              variant={isInGarage ? `destructive` : "secondary"}
+              className="w-full flex-1 py-3 px-8 uppercase text-sm cursor-pointer font-sans "
+              onClick={
+                isInGarage
+                  ? () => RemoveFromGarage(car.id, car.make, car.model)
+                  : () => AddToGarage(car.id, car.make, car.model)
+              }
             >
-              <PlusCircleIcon size={32} />
-              Save
+              {isInGarage ? <TrashIcon size={32} /> : <PlusCircleIcon size={32} />}
+              <span className="w-22.5">
+                {isInGarage ? "Remove" : "Add"} Car
+              </span>
             </Button>
           </div>
         </section>
 
         <Rule />
-
-        {/* ── Spec table ── */}
-        <section className="py-12">
-          <h3 className=" tracking-widest uppercase text-muted-foreground font-sans mb-6">
-            Specification
-          </h3>
-          <div>
-            {specs.map(([label, value]) => (
-              <SpecRow key={label} label={label} value={value} />
-            ))}
-          </div>
-        </section>
-
+        <CarSpecs specs={specs} />
         <Rule />
 
         {/* ── Fine print / reference ── */}
