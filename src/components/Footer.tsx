@@ -35,7 +35,7 @@ export default function Footer() {
           <Button
             onClick={scrollToTop}
             variant="link"
-            className="group flex items-center gap-2"
+            className="group flex items-center gap-2 text-default"
           >
             <p className="transition-transform duration-300 group-hover:-translate-y-0.5">
               Back to top
