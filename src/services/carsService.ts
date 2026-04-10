@@ -1,13 +1,13 @@
-import { cars } from "@/data/cars";
+import { carsData, type Car } from "@/data/cars";
 
-export const fetchCars = () => {
-  return new Promise((res) => setTimeout(() => res(cars), 300));
+export const fetchCars = (): Promise<Car[]> => {
+  return new Promise((res) => setTimeout(() => res(carsData), 300));
 };
 
-export const fetchCarById = (id: string) => {
+export const fetchCarById = (id: string): Promise<Car> => {
   return new Promise((res, rej) => {
     setTimeout(() => {
-      const car = cars.find((c) => c.id == id);
+      const car = carsData.find((c: Car) => c.id == id);
       return car ? res(car) : rej(new Error("Not Found"));
     }, 300);
   });

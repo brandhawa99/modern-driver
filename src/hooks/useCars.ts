@@ -6,8 +6,5 @@ export const useCars = () => {
 };
 
 export const useCar = (id: string) => {
-  return useQuery({
-    queryKey: ["car", id],
-    queryFn: () => fetchCarById(id),
-  });
+  return useQuery({ queryKey: ["car", id], queryFn: () => fetchCarById(id) });
 };

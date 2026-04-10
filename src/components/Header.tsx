@@ -15,9 +15,9 @@ export default function Header() {
     <header className="bg-[--background]">
       <nav className="flex items-center justify-between py-4 px-2 md:px-8">
         <Link to="/">
-          <h1 className="font-bold bg-[--accent]">MODERN DRIVER</h1>
+          <h1 className="font-bold bg-[--accent] text-[18px] md:text-2xl">MODERN DRIVER</h1>
         </Link>
-        <div className="flex  items-center justify-center gap-2">
+        <div className="flex  items-center justify-center md:gap-2">
           {headerLinks.map((link) => {
             const Icon = link.icon;
             return (
@@ -32,7 +32,7 @@ export default function Header() {
                     <>
                       <Icon
                         weight={`${isActive ? "fill" : "regular"}`}
-                        className="w-6! h-6! shrink-0"
+                        className="md:w-6! md:h-6! shrink-0"
                       />
                       <span
                         className={cn(
