@@ -90,8 +90,8 @@ export function CarDetailPage({ car }: CarDetailPageProps) {
       <div className="max-w-3xl mx-auto px-6 md:px-0 pb-32">
         <header className="pt-14 pb-12">
           <div className="flex flex-wrap gap-2 mb-8 items-center justify-between">
-            <Button variant="link" className="group">
-              <Link to="/showroom" className="flex items-center gap-2 justify-center ">
+            <Button variant="link" className="group text-default">
+              <Link to="/showroom" className="flex items-center gap-2 justify-center">
                 <ArrowLeftIcon size={32} className="group-hover:-translate-x-1 transition-transform duration-300 " />
                 Go Back
               </Link>
@@ -165,8 +165,6 @@ export function CarDetailPage({ car }: CarDetailPageProps) {
         <Rule />
         <CarSpecs specs={specs} />
         <Rule />
-
-        {/* ── Fine print / reference ── */}
         <div className="pt-10 flex items-center justify-between">
           <span className="text-[10px] tracking-widest uppercase text-muted-foreground font-sans">
             Ref. {car.id.toString().padStart(6, "0")}
