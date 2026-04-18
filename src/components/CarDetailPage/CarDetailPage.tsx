@@ -1,6 +1,6 @@
 import type { Car } from "@/data/cars";
 import { ArrowLeftIcon, PlusCircleIcon, TrashIcon } from "@phosphor-icons/react";
-import { Link, useNavigate } from "@tanstack/react-router";
+import { Link, useCanGoBack, useNavigate, useRouter } from "@tanstack/react-router";
 import { Button } from "../ui/button";
 import { useGarageStore } from "@/store/garageStore";
 import { Badge } from "../ui/badge";
@@ -84,18 +84,34 @@ export function CarDetailPage({ car }: CarDetailPageProps) {
     })
   }
 
+  const router = useRouter()
+  const canGoBack = useCanGoBack()
+
   return (
     <article className="min-h-screen bg-background text-foreground">
       <ImageSection image={car.image} />
       <div className="max-w-3xl mx-auto px-6 md:px-0 pb-32">
         <header className="pt-14 pb-12">
           <div className="flex flex-wrap gap-2 mb-8 items-center justify-between">
-            <Button variant="link" className="group text-default">
-              <Link to="/showroom" className="flex items-center gap-2 justify-center">
-                <ArrowLeftIcon size={32} className="group-hover:-translate-x-1 transition-transform duration-300 " />
-                Go Back
-              </Link>
-            </Button>
+            {canGoBack
+              ? (
+                <Button variant="link" className="group text-default"
+                  onClick={() => router.history.back()}
+                >
+                  <div className="flex items-center gap-2 justify-center">
+                    <ArrowLeftIcon size={32} className="group-hover:-translate-x-1 transition-transform duration-300 " />
+                    Go Back
+                  </div>
+                </Button>
+              )
+              : (
+                <Button variant="link" className="group text-default">
+                  <Link to="/showroom" className="flex items-center gap-2 justify-center">
+                    <ArrowLeftIcon size={32} className="group-hover:-translate-x-1 transition-transform duration-300 " />
+                    Go Back
+                  </Link>
+                </Button>
+              )}
             <div className="flex gap-2">
               {tags.map((t) => <Badge variant="outline" className="p-2" key={t}>{t}</Badge>)}
             </div>

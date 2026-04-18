@@ -139,3 +139,10 @@
     font-size: var(--text-xl);
   }
 }
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
+
+@utility animate-fadein {
+  animation: fadeIn 0.3s ease 2.2s forwards;
+}
