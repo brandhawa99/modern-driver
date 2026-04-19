@@ -1,4 +1,4 @@
-import DisplayCard from "@/components/DisplayCard";
+import DisplayCard from "@/components/DisplayCard/DisplayCard";
 import { carsData } from "@/data/cars";
 import { createFileRoute } from "@tanstack/react-router";
 
