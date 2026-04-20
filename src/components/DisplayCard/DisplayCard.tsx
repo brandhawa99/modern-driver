@@ -19,9 +19,12 @@ const DisplayCard = ({ car }: { car: Car }) => {
     mileage,
     price,
     location,
+    transmission,
     image,
     countryCode,
-    isAuction
+    isAuction,
+    condition,
+    engine,
   } = car;
   const navigate = useNavigate();
 
@@ -65,25 +68,16 @@ const DisplayCard = ({ car }: { car: Car }) => {
             }
           </div>
 
-          <div className="p-4 space-y-1.5 flex flex-col">
-            <h3 className="text-lg font-semibold leading-tight">
-              {make} {model}
-            </h3>
-
-            <p className="text-sm text-muted-foreground leading-tight">
-              {year} • {mileage.toLocaleString()} miles
+          <div className="px-4 pt-4 space-y-1.5 flex flex-col">
+            <CarHeader year={year} make={make} model={model} />
+            <CountrySection location={location} countryCode={countryCode} />
+            <p className="text-sm text-muted-foreground leading-tight capitalize">
+              {/* add ability to change units */}
+              {mileage.toLocaleString()} miles • {engine.displacement} {engine.aspiration} {engine.type} Engine  • {engine.horsepower}HP • Condition: {condition}
             </p>
-
-            <div className="text-sm flex items-center gap-2 leading-tight">
-              <img
-                src={`https://flagsapi.com/${countryCode}/flat/24.png`}
-                className="w-4 h-4 object-cover"
-              />
-              <span className="text-muted-foreground">{location}</span>
-            </div>
           </div>
         </Link>
-        <div className="absolute top-2 right-2 group-hover:flex hidden" onClick={e => e.stopPropagation()}>
+        <div className={cn("absolute top-2 right-2 hidden group-hover:flex", isInGarage && "flex")} onClick={e => e.stopPropagation()}>
           <HeartButton isInGarage={isInGarage} RemoveFromGarage={RemoveFromGarage} AddToGarage={AddToGarage} carId={id} />
         </div>
       </div>
@@ -98,7 +92,30 @@ const DisplayCard = ({ car }: { car: Car }) => {
           </p>
         </div>
       </CardAction>
-    </Card>
+    </Card >
+  )
+}
+
+type CarHeaderProps = Pick<Car, "year" | "make" | "model">
+
+const CarHeader = ({ year, make, model }: CarHeaderProps) => {
+  return (
+    <h3 className="text-lg font-semibold leading-tight">
+      {year} {make} {model}
+    </h3>
+  )
+}
+
+type CountrySectionProps = Pick<Car, "countryCode" | "location">
+const CountrySection = ({ location, countryCode }: CountrySectionProps) => {
+  return (
+    <div className="text-sm flex items-center gap-2 leading-tight">
+      <img
+        src={`https://flagsapi.com/${countryCode}/flat/24.png`}
+        className="w-4 h-4 object-cover"
+      />
+      <span className="text-muted-foreground">{location}</span>
+    </div>
   )
 }
 

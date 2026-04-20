@@ -10,19 +10,15 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as GarageRouteImport } from './routes/garage'
-import { Route as AuctionRouteImport } from './routes/auction'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ShowroomIndexRouteImport } from './routes/showroom/index'
+import { Route as AuctionIndexRouteImport } from './routes/auction/index'
 import { Route as ShowroomCarIdRouteImport } from './routes/showroom/$carId'
+import { Route as AuctionCarIdRouteImport } from './routes/auction/$carId'
 
 const GarageRoute = GarageRouteImport.update({
   id: '/garage',
   path: '/garage',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AuctionRoute = AuctionRouteImport.update({
-  id: '/auction',
-  path: '/auction',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -35,53 +31,80 @@ const ShowroomIndexRoute = ShowroomIndexRouteImport.update({
   path: '/showroom/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuctionIndexRoute = AuctionIndexRouteImport.update({
+  id: '/auction/',
+  path: '/auction/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ShowroomCarIdRoute = ShowroomCarIdRouteImport.update({
   id: '/showroom/$carId',
   path: '/showroom/$carId',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuctionCarIdRoute = AuctionCarIdRouteImport.update({
+  id: '/auction/$carId',
+  path: '/auction/$carId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/auction': typeof AuctionRoute
   '/garage': typeof GarageRoute
+  '/auction/$carId': typeof AuctionCarIdRoute
   '/showroom/$carId': typeof ShowroomCarIdRoute
+  '/auction/': typeof AuctionIndexRoute
   '/showroom/': typeof ShowroomIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/auction': typeof AuctionRoute
   '/garage': typeof GarageRoute
+  '/auction/$carId': typeof AuctionCarIdRoute
   '/showroom/$carId': typeof ShowroomCarIdRoute
+  '/auction': typeof AuctionIndexRoute
   '/showroom': typeof ShowroomIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/auction': typeof AuctionRoute
   '/garage': typeof GarageRoute
+  '/auction/$carId': typeof AuctionCarIdRoute
   '/showroom/$carId': typeof ShowroomCarIdRoute
+  '/auction/': typeof AuctionIndexRoute
   '/showroom/': typeof ShowroomIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/auction' | '/garage' | '/showroom/$carId' | '/showroom/'
+  fullPaths:
+    | '/'
+    | '/garage'
+    | '/auction/$carId'
+    | '/showroom/$carId'
+    | '/auction/'
+    | '/showroom/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auction' | '/garage' | '/showroom/$carId' | '/showroom'
+  to:
+    | '/'
+    | '/garage'
+    | '/auction/$carId'
+    | '/showroom/$carId'
+    | '/auction'
+    | '/showroom'
   id:
     | '__root__'
     | '/'
-    | '/auction'
     | '/garage'
+    | '/auction/$carId'
     | '/showroom/$carId'
+    | '/auction/'
     | '/showroom/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  AuctionRoute: typeof AuctionRoute
   GarageRoute: typeof GarageRoute
+  AuctionCarIdRoute: typeof AuctionCarIdRoute
   ShowroomCarIdRoute: typeof ShowroomCarIdRoute
+  AuctionIndexRoute: typeof AuctionIndexRoute
   ShowroomIndexRoute: typeof ShowroomIndexRoute
 }
 
@@ -92,13 +115,6 @@ declare module '@tanstack/react-router' {
       path: '/garage'
       fullPath: '/garage'
       preLoaderRoute: typeof GarageRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/auction': {
-      id: '/auction'
-      path: '/auction'
-      fullPath: '/auction'
-      preLoaderRoute: typeof AuctionRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -115,6 +131,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ShowroomIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/auction/': {
+      id: '/auction/'
+      path: '/auction'
+      fullPath: '/auction/'
+      preLoaderRoute: typeof AuctionIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/showroom/$carId': {
       id: '/showroom/$carId'
       path: '/showroom/$carId'
@@ -122,14 +145,22 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ShowroomCarIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/auction/$carId': {
+      id: '/auction/$carId'
+      path: '/auction/$carId'
+      fullPath: '/auction/$carId'
+      preLoaderRoute: typeof AuctionCarIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  AuctionRoute: AuctionRoute,
   GarageRoute: GarageRoute,
+  AuctionCarIdRoute: AuctionCarIdRoute,
   ShowroomCarIdRoute: ShowroomCarIdRoute,
+  AuctionIndexRoute: AuctionIndexRoute,
   ShowroomIndexRoute: ShowroomIndexRoute,
 }
 export const routeTree = rootRouteImport
