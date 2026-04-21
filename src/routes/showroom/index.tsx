@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import CarCard from "@/components/ShowroomPage/CarCard";
 import { carsData } from "@/data/cars"
+import DisplayCard from "@/components/DisplayCard/DisplayCard";
 export const Route = createFileRoute("/showroom/")({
   component: RouteComponent,
 });
@@ -13,7 +14,7 @@ function RouteComponent() {
         <h2 className="text-2xl py-12">{carsData.length} Cars For Sale</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3  gap-10">
           {carsData.map(car => (
-            <CarCard key={car.id} car={car} />
+            <DisplayCard key={car.id} car={car} />
           ))}
         </div>
       </div>

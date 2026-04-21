@@ -1,14 +1,13 @@
-import { isPlainArray, Link, useNavigate } from "@tanstack/react-router"
+import { Link, useNavigate } from "@tanstack/react-router"
 import { Card, CardAction } from "../ui/card"
 import { cn } from "@/lib/utils"
-import { ClockCountdownIcon, HeartIcon, TimerIcon } from "@phosphor-icons/react"
-import { Button } from "../ui/button"
-import { Tooltip, TooltipTrigger, TooltipContent } from "../ui/tooltip"
+import { ClockCountdownIcon, EngineIcon, GaugeIcon, MedalIcon, SpeedometerIcon } from "@phosphor-icons/react"
 import { useGarageStore } from "@/store/garageStore"
 import type { Car } from "@/data/cars"
 import { toast } from "sonner"
-import { CountdownTimer } from "../CountdownTimer"
+import { CountdownTimer } from "./CountdownTimer"
 import HeartButton from "./HeartButton"
+import { Button } from "../ui/button"
 
 const DisplayCard = ({ car }: { car: Car }) => {
   const {
@@ -19,12 +18,13 @@ const DisplayCard = ({ car }: { car: Car }) => {
     mileage,
     price,
     location,
-    transmission,
     image,
     countryCode,
     isAuction,
     condition,
     engine,
+    reservePrice,
+    currentBid
   } = car;
   const navigate = useNavigate();
 
@@ -49,7 +49,7 @@ const DisplayCard = ({ car }: { car: Car }) => {
 
 
   return (
-    <Card className="p-0 overflow-hidden">
+    <Card className="p-0 overflow-hidden h-full flex flex-col justify-between">
       <div className="relative group">
         <Link to={"/showroom/$carId"} params={{ carId: id }} className="block">
           <div className="relative group ">
@@ -62,6 +62,7 @@ const DisplayCard = ({ car }: { car: Car }) => {
             {
               isAuction &&
               <div className="absolute right-1 bottom-1 bg-background p-1 px-2 w-38 rounded-2xl text-default z-10 flex justify-center items-center gap-1">
+                {/* TODO: Fix the moving icon */}
                 <ClockCountdownIcon />
                 <CountdownTimer endTime={car.endTime + ""} />
               </div>
@@ -71,28 +72,85 @@ const DisplayCard = ({ car }: { car: Car }) => {
           <div className="px-4 pt-4 space-y-1.5 flex flex-col">
             <CarHeader year={year} make={make} model={model} />
             <CountrySection location={location} countryCode={countryCode} />
-            <p className="text-sm text-muted-foreground leading-tight capitalize">
-              {/* add ability to change units */}
-              {mileage.toLocaleString()} miles • {engine.displacement} {engine.aspiration} {engine.type} Engine  • {engine.horsepower}HP • Condition: {condition}
+            <p className="text-sm text-muted-foreground leading-tight flex flex-wrap gap-x-3 gap-y-1">
+              <span className="inline-flex items-center gap-1 whitespace-nowrap">
+                <GaugeIcon size={16} />
+                {mileage.toLocaleString()} mi
+              </span>
+
+              <span className="inline-flex items-center gap-1 whitespace-nowrap">
+                <EngineIcon size={16} />
+                {engine.displacement} {engine.aspiration} {engine.type}
+              </span>
+
+              <span className="inline-flex items-center gap-1 whitespace-nowrap">
+                <SpeedometerIcon size={16} />
+                {engine.horsepower} HP
+              </span>
+
+              <span className="inline-flex items-center gap-1 whitespace-nowrap">
+                <MedalIcon size={16} />
+                {condition}
+              </span>
             </p>
           </div>
         </Link>
         <div className={cn("absolute top-2 right-2 hidden group-hover:flex", isInGarage && "flex")} onClick={e => e.stopPropagation()}>
           <HeartButton isInGarage={isInGarage} RemoveFromGarage={RemoveFromGarage} AddToGarage={AddToGarage} carId={id} />
         </div>
-      </div>
+      </div >
+      <ActionSection isAuction={isAuction} currentBid={currentBid} price={price} reservePrice={reservePrice} id={id} />
+    </Card >
+  )
 
-      <CardAction className="w-full px-4 pb-4 pt-2 flex items-end justify-between border-t border-border/50">
+}
+
+type ActionSectionProps = Pick<Car, "currentBid" | "price" | "reservePrice" | "id"> & { isAuction: boolean }
+
+
+const ActionSection = ({ isAuction, currentBid, price, reservePrice, id }: ActionSectionProps) => {
+  const label = isAuction ? "Current Bid" : "Price";
+  const primaryValue = isAuction ? currentBid : price;
+  const showReserve = isAuction && reservePrice;
+  return (
+    <CardAction className="w-full px-4 pb-4 pt-2 border-t border-border/50 flex flex-col gap-4">
+
+      {/* Top row: pricing */}
+      <div className="flex items-end justify-between">
         <div className="space-y-0.5">
           <p className="text-[10px] tracking-widest text-muted-foreground uppercase">
-            Price
+            {label}
           </p>
           <p className="text-lg font-semibold leading-tight">
-            USD ${price.toLocaleString()}
+            USD ${primaryValue?.toLocaleString()}
           </p>
         </div>
-      </CardAction>
-    </Card >
+
+        {showReserve && (
+          <div className="space-y-0.5 text-right">
+            <p className="text-[10px] tracking-widest text-muted-foreground uppercase">
+              Reserve
+            </p>
+            <p className="text-lg font-semibold leading-tight">
+              USD ${reservePrice.toLocaleString()}
+            </p>
+          </div>
+        )}
+      </div>
+
+      {/* Bottom row: full-width CTA */}
+      <Button asChild className="w-full ">
+        <Link
+          to={isAuction ? "/auction/$carId" : "/showroom/$carId"}
+          params={{ carId: id }}
+        >
+          {isAuction ? "View Auction" : "View Showroom"}
+        </Link>
+      </Button>
+
+    </CardAction>
+
+
   )
 }
 
@@ -106,6 +164,14 @@ const CarHeader = ({ year, make, model }: CarHeaderProps) => {
   )
 }
 
+// Decided To add this for demo purposes, but ideally we should just store the country name in the data instead of the code and use that directly. This is just a quick mapping to avoid having to change the data structure.
+const countryCodeMap: { [key: string]: string } = {
+  "CH": "Switzerland",
+  "IT": "Italy",
+  "GB": "United Kingdom",
+  "FR": "France",
+  "DE": "Germany",
+}
 type CountrySectionProps = Pick<Car, "countryCode" | "location">
 const CountrySection = ({ location, countryCode }: CountrySectionProps) => {
   return (
@@ -114,9 +180,12 @@ const CountrySection = ({ location, countryCode }: CountrySectionProps) => {
         src={`https://flagsapi.com/${countryCode}/flat/24.png`}
         className="w-4 h-4 object-cover"
       />
-      <span className="text-muted-foreground">{location}</span>
+      <span className="text-muted-foreground">{location}, {countryCodeMap[countryCode]}</span>
     </div>
   )
 }
+
+
+
 
 export default DisplayCard
