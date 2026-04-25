@@ -2,15 +2,36 @@ import { cn } from "@/lib/utils";
 import { Button } from "../ui/button";
 import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
 import { HeartIcon } from "@phosphor-icons/react";
+import { useGarageStore } from "@/store/garageStore";
+import { toast } from "sonner";
+import { useNavigate } from "@tanstack/react-router";
 
 interface HeartButtonProps {
   isInGarage: boolean;
-  RemoveFromGarage: (id: string) => void;
-  AddToGarage: (id: string) => void;
   carId: string;
 }
 
-export default function HeartButton({ isInGarage, AddToGarage, RemoveFromGarage, carId }: HeartButtonProps) {
+export default function HeartButton({ isInGarage, carId }: HeartButtonProps) {
+
+  const { addCar, removeCar } = useGarageStore();
+  const navigate = useNavigate();
+  function AddToGarage(carID: string): void {
+    addCar(carID);
+    toast("Car Added To Your Garage!", {
+      action: {
+        label: "View",
+        onClick: () => {
+          navigate({ to: "/garage" });
+        },
+      },
+    });
+  }
+
+  function RemoveFromGarage(carID: string): void {
+    removeCar(carID);
+    toast("Car Remove From Garage :(");
+  }
+
 
   return (
     <Tooltip>

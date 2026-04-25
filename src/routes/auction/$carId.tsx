@@ -1,9 +1,23 @@
 import { createFileRoute } from '@tanstack/react-router'
+import { useCar } from '@/hooks/useCars';
+import { CarDetailPage } from '@/components/CarDetailPage/CarDetailPage';
 
 export const Route = createFileRoute('/auction/$carId')({
   component: RouteComponent,
 })
-
 function RouteComponent() {
-  return <div>Hello "/auction/$carId"!</div>
+  const { carId } = Route.useParams();
+  const { data, isPending, isError } = useCar(carId);
+  if (isError) {
+    return <div>Error loading car data.</div>
+  }
+  if (isPending) {
+    return <div>Loading...</div>
+  }
+
+  return (
+    <CarDetailPage car={data} />
+  )
+
 }
+

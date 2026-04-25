@@ -1,13 +1,13 @@
-import { Link, useNavigate } from "@tanstack/react-router"
+import { Link } from "@tanstack/react-router"
 import { Card, CardAction } from "../ui/card"
 import { cn } from "@/lib/utils"
-import { ClockCountdownIcon, EngineIcon, GaugeIcon, MedalIcon, SpeedometerIcon } from "@phosphor-icons/react"
+import { ArrowRightIcon, ClockCountdownIcon, EngineIcon, GaugeIcon, MedalIcon, SpeedometerIcon } from "@phosphor-icons/react"
 import { useGarageStore } from "@/store/garageStore"
 import type { Car } from "@/data/cars"
-import { toast } from "sonner"
 import { CountdownTimer } from "./CountdownTimer"
 import HeartButton from "./HeartButton"
 import { Button } from "../ui/button"
+import { useAuctionStore } from "@/store/auctionStore"
 
 const DisplayCard = ({ car }: { car: Car }) => {
   const {
@@ -26,32 +26,15 @@ const DisplayCard = ({ car }: { car: Car }) => {
     reservePrice,
     currentBid
   } = car;
-  const navigate = useNavigate();
 
   const garageIds = useGarageStore((state) => state.garageIds)
-  const { addCar, removeCar } = useGarageStore();
+  const topBid = useAuctionStore(state => state.bidsByCarId[id] ?? currentBid)
   const isInGarage = garageIds[car?.id]
-  function AddToGarage(carID: string): void {
-    addCar(carID);
-    toast("Car Added To Your Garage!", {
-      action: {
-        label: "View",
-        onClick: () => { navigate({ to: "/garage" }) }
-      }
-    })
-
-  }
-
-  function RemoveFromGarage(carID: string): void {
-    removeCar(carID)
-    toast("Car Remove From Garage :(")
-  }
-
 
   return (
     <Card className="p-0 overflow-hidden h-full flex flex-col justify-between">
       <div className="relative group">
-        <Link to={"/showroom/$carId"} params={{ carId: id }} className="block">
+        <Link to={isAuction ? "/auction/$carId" : "/showroom/$carId"} params={{ carId: id }} className="block">
           <div className="relative group ">
             <img
               src={image}
@@ -96,10 +79,10 @@ const DisplayCard = ({ car }: { car: Car }) => {
           </div>
         </Link>
         <div className={cn("absolute top-2 right-2 hidden group-hover:flex", isInGarage && "flex")} onClick={e => e.stopPropagation()}>
-          <HeartButton isInGarage={isInGarage} RemoveFromGarage={RemoveFromGarage} AddToGarage={AddToGarage} carId={id} />
+          <HeartButton isInGarage={isInGarage} carId={id} />
         </div>
       </div >
-      <ActionSection isAuction={isAuction} currentBid={currentBid} price={price} reservePrice={reservePrice} id={id} />
+      <ActionSection isAuction={isAuction} currentBid={topBid} price={price} reservePrice={reservePrice} id={id} />
     </Card >
   )
 
@@ -139,12 +122,14 @@ const ActionSection = ({ isAuction, currentBid, price, reservePrice, id }: Actio
       </div>
 
       {/* Bottom row: full-width CTA */}
-      <Button asChild className="w-full ">
+      <Button asChild className="w-full group" variant="outline">
         <Link
+          className="relative flex w-full items-center justify-between"
           to={isAuction ? "/auction/$carId" : "/showroom/$carId"}
           params={{ carId: id }}
         >
-          {isAuction ? "View Auction" : "View Showroom"}
+          {isAuction ? "Bid Now" : "View Showroom"}
+          <ArrowRightIcon className="absolute right-5 size-4 shrink-0 transition-all duration-200 ease-out group-hover:translate-x-2" />
         </Link>
       </Button>
 

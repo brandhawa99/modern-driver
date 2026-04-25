@@ -18,6 +18,7 @@ export interface Car {
   currentBid?: number;
   reservePrice?: number;
   engine: Engine;
+  bidCount?: number;
 }
 export interface Engine {
   type: string;

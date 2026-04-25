@@ -1,15 +1,10 @@
 import { useCar } from "@/hooks/useCars";
 import { createFileRoute } from "@tanstack/react-router";
-import { queryClient } from "../../main";
-import { fetchCarById } from "@/services/carsService";
 import { CarDetailPage } from "@/components/CarDetailPage/CarDetailPage";
 
 
 
 export const Route = createFileRoute("/showroom/$carId")({
-  loader: async ({ params }) => {
-    queryClient.ensureQueryData({ queryKey: ["car", params.carId], queryFn: () => fetchCarById(params.carId) });
-  },
   component: RouteComponent,
 });
 

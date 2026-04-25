@@ -12,14 +12,19 @@ export function CountdownTimer({ endTime }: { endTime: string }) {
   }, [endTime])
 
   if (timeLeft.isExpired) return <span>Auction ended</span>
-  const showSeconds = timeLeft.days === 0 && timeLeft.hours <= 24
 
   return (
-    <div flex-1>
-      {timeLeft.days > 0 && <span>{timeLeft.days}D </span>}
-      {timeLeft.hours > 0 && <span>{timeLeft.hours}H </span>}
-      <span>{timeLeft.minutes}M </span>
-      {showSeconds && <span>{timeLeft.seconds}S</span>}
-    </div>
+    <div className="font-mono dark:text-white text-black">
+      {
+        timeLeft.days > 0
+          ? <span>{timeLeft.days} Day{timeLeft.days > 1 ? "s" : ""}</span>
+          :
+          <>
+            <span>{timeLeft.hours <= 9 ? "0" : ""}{timeLeft.hours}:</span>
+            <span>{timeLeft.minutes <= 9 ? "0" : ""}{timeLeft.minutes}:</span>
+            <span>{timeLeft.seconds <= 9 ? "0" : ""}{timeLeft.seconds}</span>
+          </>
+      }
+    </div >
   )
 }
