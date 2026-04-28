@@ -30,6 +30,14 @@ export default function Footer() {
           </div>
         </div>
       </div>
+      <div>
+        <div className="w-full px-0 flex-items-center justify-center text-center">
+          <h1 className="mt-40 w-full text-[11vw] whitespace-nowrap leading-none font-bold">
+            MODERN DRIVER
+          </h1>
+          <p>© {getYear()} All rights reserved.</p>
+        </div>
+      </div>
       <div className="w-full py-3 bg-accent px-2 md:px-8 flex items-center justify-between text-center">
         <div className="flex items-center justify-center gap-5">
           <Button
@@ -47,11 +55,8 @@ export default function Footer() {
           </Button>
           <ThemeSelector />
         </div>
-        <p>© {getYear()} Modern Driver. All rights reserved.</p>
-        <p className="hidden md:block">Made By: Baltej Randhawa</p>
+        <p className="">Made By: Baltej Randhawa</p>
       </div>
-
-
     </footer >
   )
 }

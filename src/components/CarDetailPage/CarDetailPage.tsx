@@ -10,6 +10,7 @@ import { Badge } from "../ui/badge";
 import { getCarSpecs, getCarTags } from "@/lib/carDetails";
 import { formatPrice } from "@/lib/utils";
 import { Separator } from "../ui/separator";
+import { countryCodeMap } from "@/lib/countryCodeToName";
 interface CarDetailPageProps {
   car: Car;
 }
@@ -44,7 +45,7 @@ export function CarDetailPage({ car }: CarDetailPageProps) {
               {car.year}
             </span>
             <span className="text-md tracking-widest uppercase text-muted-foreground font-sans flex flex-row-reverse gap-2 items-center">
-              {car.location}
+              {car.location}, {countryCodeMap[car.countryCode]}
               <span className="text-2xl">·</span>
               <span>
                 <img src={`https://flagsapi.com/${car.countryCode}/flat/24.png`} />

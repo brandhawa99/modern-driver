@@ -292,7 +292,7 @@ export const carsData: Car[] = [
     make: "Ford",
     model: "Mustang",
     trim: "GT Fastback",
-    year: 1967,
+    year: 2016,
     price: 90_000,
     mileage: 61000,
     location: "London",

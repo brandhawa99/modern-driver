@@ -8,6 +8,7 @@ import { CountdownTimer } from "./CountdownTimer"
 import HeartButton from "./HeartButton"
 import { Button } from "../ui/button"
 import { useAuctionStore } from "@/store/auctionStore"
+import { countryCodeMap } from "@/lib/countryCodeToName"
 
 const DisplayCard = ({ car }: { car: Car }) => {
   const {
@@ -149,14 +150,6 @@ const CarHeader = ({ year, make, model }: CarHeaderProps) => {
   )
 }
 
-// Decided To add this for demo purposes, but ideally we should just store the country name in the data instead of the code and use that directly. This is just a quick mapping to avoid having to change the data structure.
-const countryCodeMap: { [key: string]: string } = {
-  "CH": "Switzerland",
-  "IT": "Italy",
-  "GB": "United Kingdom",
-  "FR": "France",
-  "DE": "Germany",
-}
 type CountrySectionProps = Pick<Car, "countryCode" | "location">
 const CountrySection = ({ location, countryCode }: CountrySectionProps) => {
   return (
