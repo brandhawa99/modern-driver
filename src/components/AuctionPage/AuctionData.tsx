@@ -7,6 +7,8 @@ import { Button } from "../ui/button"
 import { useAuctionBidLoop } from "@/hooks/useAuctionBidLoop"
 import type { Car } from "@/data/cars"
 import BidHistory from "./BidHistory"
+import confetti from "canvas-confetti"
+import BidButton from "./BidButton"
 
 const EMPTY_BIDS: Bid[] = []
 
@@ -18,6 +20,26 @@ const AuctionData = ({ car }: { car: Car }) => {
 
   useAuctionBidLoop(car)
 
+  const handleBid = () => {
+    placeBid(car.id);
+    confetti({
+      particleCount: 40,
+      spread: 90,
+      origin: { y: 1 },
+      colors: [
+        "#c9a84c", // gold
+        "#ff595e", // red
+        "#ffca3a", // yellow
+        "#6a4c93", // purple
+        "#1982c4", // blue
+        "#8ac926", // green
+        "#ff924c", // orange
+        "#ffffff", // white
+        "#ff99c8", // pink
+      ],
+      scalar: 0.8,
+    })
+  }
 
   return (
     <>
@@ -35,12 +57,7 @@ const AuctionData = ({ car }: { car: Car }) => {
         <AuctionDetails data={bids.length.toLocaleString()} iconText="Bids">
           <HashIcon color="#6a7282" />
         </AuctionDetails>
-        <div className="relative">
-          <Button disabled={currentBid >= car.reservePrice!} onClick={() => { placeBid(car.id) }} className="grow-4 order-first sm:order-last cursor-pointer rounded w-full sm:w-30 p-0  h-8 ">
-            <GavelIcon color="#fff" />
-            Place Bid
-          </Button>
-        </div>
+        <BidButton carId={car.id} disabled={isReserveMet} />
       </div>
       {
         isReserveMet &&
