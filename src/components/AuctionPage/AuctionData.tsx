@@ -2,15 +2,20 @@ import { ArrowUpIcon, ClockIcon, GavelIcon, HashIcon } from "@phosphor-icons/rea
 import AuctionDetails from "./AuctionDetails"
 import { CountdownTimer } from "../DisplayCard/CountdownTimer"
 import { formatPrice } from "@/lib/utils"
-import { useAuctionStore } from "@/store/auctionStore"
+import { useAuctionStore, type Bid } from "@/store/auctionStore"
 import { Button } from "../ui/button"
 import { useAuctionBidLoop } from "@/hooks/useAuctionBidLoop"
 import type { Car } from "@/data/cars"
+import BidHistory from "./BidHistory"
+
+const EMPTY_BIDS: Bid[] = []
 
 const AuctionData = ({ car }: { car: Car }) => {
+  const currentBid = useAuctionStore(state => state.bidsByCarId[car.id] || 0)
+  const isReserveMet = useAuctionStore(state => state.reserveMetByCarId[car.id] ?? false)
+  const bids = useAuctionStore(state => state.bids[car.id] ?? EMPTY_BIDS)  // stable fallback
+  const placeBid = useAuctionStore(state => state.placeBid)
 
-  const currentBid = useAuctionStore(state => state.currentBid)
-  const bids = useAuctionStore(state => state.bids)
   useAuctionBidLoop(car)
 
 
@@ -30,13 +35,15 @@ const AuctionData = ({ car }: { car: Car }) => {
         <AuctionDetails data={bids.length.toLocaleString()} iconText="Bids">
           <HashIcon color="#6a7282" />
         </AuctionDetails>
-        <Button disabled={currentBid >= car.reservePrice!} onClick={() => { console.log("HELLO") }} className="grow-4 order-first sm:order-last cursor-pointer rounded w-full sm:w-30 p-0  h-8 ">
-          <GavelIcon color="#fff" />
-          Place Bid
-        </Button>
+        <div className="relative">
+          <Button disabled={currentBid >= car.reservePrice!} onClick={() => { placeBid(car.id) }} className="grow-4 order-first sm:order-last cursor-pointer rounded w-full sm:w-30 p-0  h-8 ">
+            <GavelIcon color="#fff" />
+            Place Bid
+          </Button>
+        </div>
       </div>
       {
-        currentBid >= car.reservePrice! &&
+        isReserveMet &&
         <div className="w-full mb-10 px-4 py-3 rounded-2xl bg-primary/10 border border-primary/30 flex items-center gap-3">
           <div className="w-2 h-2 rounded-full bg-primary" />
           <p className="text-sm font-medium text-primary tracking-wide">
@@ -44,6 +51,10 @@ const AuctionData = ({ car }: { car: Car }) => {
           </p>
         </div>
       }
+      {bids.length > 0 && (<h1>Bid History</h1>)}
+      <div className="w-full divide-y divide-border/50 min-h-50  max-h-50 overflow-y-auto no-scrollbar">
+        <BidHistory bids={bids} isReserveMet={isReserveMet} />
+      </div>
     </>
   )
 }

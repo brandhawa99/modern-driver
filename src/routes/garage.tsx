@@ -2,7 +2,6 @@ import GarageCard from "@/components/Garage/GarageCard";
 import { GarageValuation } from "@/components/Garage/GarageValuation";
 import { Button } from "@/components/ui/button";
 import { carsData } from "@/data/cars";
-import { formatPrice } from "@/lib/utils";
 import { useGarageStore } from "@/store/garageStore";
 import { createFileRoute, Link } from "@tanstack/react-router";
 
@@ -33,8 +32,8 @@ function RouteComponent() {
               <GarageValuation cars={garageCars} />
               {/* <h2 className="text-2xl py-12">{garageCars.length} Cars In Your Garage</h2> */}
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3  gap-10">
-                {garageCars.map((car) => (
-                  <GarageCard car={car} />
+                {garageCars.map((car, index) => (
+                  <GarageCard car={car} key={index} />
                 ))}
               </div>
             </div>
