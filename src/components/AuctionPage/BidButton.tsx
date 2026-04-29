@@ -1,5 +1,5 @@
 import confetti from "canvas-confetti"
-import { useRef } from "react"
+import { useRef, useState } from "react"
 import { GavelIcon } from "@phosphor-icons/react"
 import { Button } from "../ui/button"
 import { useAuctionStore } from "@/store/auctionStore"
@@ -11,11 +11,21 @@ const BidButton = ({ carId, disabled }: { carId: string, disabled: boolean }) =>
   const placeBid = useAuctionStore(state => state.placeBid)
   const currentBid = useAuctionStore(state => state.bidsByCarId[carId] || 0)
   const buttonRef = useRef<HTMLButtonElement>(null)
+  const [disable, setDisable] = useState(false);
+  const [buttonTxt, setButtonTxt] = useState("");
 
   const handleBid = () => {
     if (disabled) return
     placeBid(carId)
 
+    setDisable(true);
+    setButtonTxt("Placing Bid...")
+
+    setTimeout(() => {
+      setDisable(false);
+      setButtonTxt("")
+
+    }, 2000)
     const rect = buttonRef.current?.getBoundingClientRect()
     if (!rect) return
 
@@ -25,30 +35,30 @@ const BidButton = ({ carId, disabled }: { carId: string, disabled: boolean }) =>
 
     confetti({
       particleCount: 40,
-      angle: 90,
+      angle: 10,
       spread: 50,
       origin: { x, y },
       colors: COLORS,
+      startVelocity: 20,
     })
-
-    // confetti({
-    //   particleCount: 40,
-    //   angle: 120,
-    //   spread: 55,
-    //   origin: { x, y },
-    //   colors: COLORS,
-    // })
+    confetti({
+      particleCount: 40,
+      angle: 170,
+      spread: 50,
+      origin: { x, y },
+      colors: COLORS,
+      startVelocity: 20,
+    })
   }
-
   return (
     <Button
       ref={buttonRef}
-      disabled={disabled}
+      disabled={disabled || disable}
       onClick={handleBid}
       className="order-first sm:order-last cursor-pointer rounded w-full sm:w-50 p-0  h-8"
     >
       <GavelIcon color="#fff" />
-      Place Bid — {formatPrice(currentBid + 500)}
+      {buttonTxt !== "" ? buttonTxt : "Place Bid — " + formatPrice(currentBid + 500)}
     </Button>
   )
 }
