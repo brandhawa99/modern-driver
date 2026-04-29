@@ -24,7 +24,6 @@ const DisplayCard = ({ car }: { car: Car }) => {
     isAuction,
     condition,
     engine,
-    reservePrice,
     currentBid
   } = car;
 
@@ -83,19 +82,18 @@ const DisplayCard = ({ car }: { car: Car }) => {
           <HeartButton isInGarage={isInGarage} carId={id} />
         </div>
       </div >
-      <ActionSection isAuction={isAuction} currentBid={topBid} price={price} reservePrice={reservePrice} id={id} />
+      <ActionSection isAuction={isAuction} currentBid={topBid} price={price} id={id} />
     </Card >
   )
 
 }
 
-type ActionSectionProps = Pick<Car, "currentBid" | "price" | "reservePrice" | "id"> & { isAuction: boolean }
+type ActionSectionProps = Pick<Car, "currentBid" | "price" | "id"> & { isAuction: boolean }
 
 
-const ActionSection = ({ isAuction, currentBid, price, reservePrice, id }: ActionSectionProps) => {
+const ActionSection = ({ isAuction, currentBid, price, id }: ActionSectionProps) => {
   const label = isAuction ? "Current Bid" : "Price";
   const primaryValue = isAuction ? currentBid : price;
-  const showReserve = isAuction && reservePrice;
   return (
     <CardAction className="w-full px-4 pb-4 pt-2 border-t border-border/50 flex flex-col gap-4">
 
@@ -110,13 +108,10 @@ const ActionSection = ({ isAuction, currentBid, price, reservePrice, id }: Actio
           </p>
         </div>
 
-        {showReserve && (
-          <div className="space-y-0.5 text-right">
-            <p className="text-[10px] tracking-widest text-muted-foreground uppercase">
-              Reserve
-            </p>
-            <p className="text-lg font-semibold leading-tight">
-              USD ${reservePrice.toLocaleString()}
+        {isAuction && (
+          <div className="space-y-0.5 text-right bg-primary/40 p-2 rounded">
+            <p className=" text-white uppercase text-center">
+              Has Reserve
             </p>
           </div>
         )}

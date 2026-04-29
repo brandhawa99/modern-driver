@@ -15,7 +15,6 @@ const BidButton = ({ carId, disabled }: { carId: string, disabled: boolean }) =>
   const [buttonTxt, setButtonTxt] = useState("");
 
   const handleBid = () => {
-    if (disabled) return
     placeBid(carId)
 
     setDisable(true);

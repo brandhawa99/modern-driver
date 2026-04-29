@@ -7,17 +7,12 @@ export const useAuctionBidLoop = (car: Car | undefined) => {
   useEffect(() => {
     if (!car) return;
 
-    useAuctionStore
-      .getState()
-      .initAuction(car.id, car.currentBid!, car.reservePrice!);
+    useAuctionStore.getState().initAuction(car.id, car.currentBid!);
 
     const scheduleBid = () => {
       const delay = Math.random() * 15500 + 6000;
       const timeout = setTimeout(() => {
-        const { reserveMetByCarId, bidsByCarId, addBid } =
-          useAuctionStore.getState();
-
-        if (reserveMetByCarId[car.id]) return;
+        const { bidsByCarId, addBid } = useAuctionStore.getState();
 
         const currentBid = bidsByCarId[car.id] ?? 0;
         addBid(generateBid(currentBid, car.id));

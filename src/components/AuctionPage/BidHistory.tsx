@@ -3,8 +3,8 @@ import { formatPrice } from "@/lib/utils"
 import { formatDistanceToNow } from "date-fns"
 import { TrophyIcon } from "@phosphor-icons/react"
 
-const BidHistory = ({ bids, isReserveMet }: { bids: Bid[], isReserveMet: boolean }) => {
-  const winner = isReserveMet ? bids[0] : null
+const BidHistory = ({ bids, hasEnded }: { bids: Bid[], hasEnded: boolean }) => {
+  const winner = hasEnded ? bids[0] : null
 
   if (bids.length === 0) {
     return (
@@ -35,15 +35,15 @@ const BidHistory = ({ bids, isReserveMet }: { bids: Bid[], isReserveMet: boolean
         {bids.map((bid, index) => (
           <div
             key={bid.id}
-            className={`flex justify-between items-center py-3 px-4 ${index === 0 && isReserveMet ? "opacity-50" : ""}`}
+            className={`flex justify-between items-center py-3 px-4 ${index === 0 && hasEnded ? "opacity-50" : ""}`}
           >
             <div className="flex items-center gap-3">
-              {index === 0 && !isReserveMet && (
+              {index === 0 && !hasEnded && (
                 <span className="text-[10px] tracking-widest uppercase text-green-500">
                   Leading
                 </span>
               )}
-              {index === 0 && isReserveMet && (
+              {index === 0 && hasEnded && (
                 <span className="text-[10px] tracking-widest uppercase text-yellow-500">
                   Winner
                 </span>
