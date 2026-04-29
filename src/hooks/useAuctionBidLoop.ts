@@ -12,8 +12,9 @@ export const useAuctionBidLoop = (car: Car | undefined) => {
     const scheduleBid = () => {
       const delay = Math.random() * 15500 + 6000;
       const timeout = setTimeout(() => {
-        const { bidsByCarId, addBid } = useAuctionStore.getState();
+        if (Date.now() >= new Date(car.endTime!).getTime()) return; // stop if ended
 
+        const { bidsByCarId, addBid } = useAuctionStore.getState();
         const currentBid = bidsByCarId[car.id] ?? 0;
         addBid(generateBid(currentBid, car.id));
         scheduleBid();

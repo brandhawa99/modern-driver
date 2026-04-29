@@ -109,7 +109,7 @@ const ActionSection = ({ isAuction, currentBid, price, id }: ActionSectionProps)
         </div>
 
         {isAuction && (
-          <div className="space-y-0.5 text-right bg-primary/40 p-2 rounded">
+          <div className="space-y-0.5 text-right bg-primary/80 p-2 rounded">
             <p className=" text-white uppercase text-center">
               Has Reserve
             </p>

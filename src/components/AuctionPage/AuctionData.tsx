@@ -45,7 +45,7 @@ const AuctionData = ({ car }: { car: Car }) => {
         <BidButton carId={car.id} disabled={hasEnded} />
       </div>
       {bids.length > 0 && (<h1>Bid History</h1>)}
-      <div className="w-full divide-y divide-border/50 min-h-50  max-h-50 overflow-y-auto no-scrollbar">
+      <div className="w-full divide-y divide-border/50 min-h-50  max-h-50 overflow-y-auto">
         <BidHistory bids={bids} hasEnded={hasEnded} />
       </div>
     </>
