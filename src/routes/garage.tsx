@@ -3,7 +3,9 @@ import { GarageValuation } from "@/components/Garage/GarageValuation";
 import { Button } from "@/components/ui/button";
 import { carsData } from "@/data/cars";
 import { useGarageStore } from "@/store/garageStore";
+import { GarageIcon } from "@phosphor-icons/react";
 import { createFileRoute, Link } from "@tanstack/react-router";
+import Garage from "@/assets/Garage.gif"
 
 export const Route = createFileRoute("/garage")({
   component: RouteComponent,
@@ -15,14 +17,20 @@ function RouteComponent() {
 
   // const avgValue = totalValue / garageCars.length
   return (
-    <div className="w-full flex items-center justify-center">
+    <div className="w-full flex items-center justify-center min-h-[calc(100vh-80px)]">
       <div>
         {garageCars.length === 0 ? (
           <div className="flex flex-col items-center gap-4">
-            <p>Your garage is empty. Go add some cars!</p>
-            <Button asChild variant="link">
+            <div>
+              <div className="bg-primary/70 p-10 rounded my-10 flex items-center justify-center">
+                {/* <GarageIcon size={80} /> */}
+                <img src={Garage} />
+              </div>
+              <h1 className="font-bold">Your Collection is currently empty.</h1>
+            </div>
+            <p className="max-w-md dark:text-gray-400 text-center">Start exploring our curated collection to discover rare automotive masterpieces and begin your collection!</p>
+            <Button asChild >
               <Link to="/showroom">Add Cars</Link>
-
             </Button>
 
           </div>
