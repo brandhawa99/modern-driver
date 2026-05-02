@@ -1,10 +1,10 @@
-import GarageCard from "@/components/Garage/GarageCard";
 import { GarageValuation } from "@/components/Garage/GarageValuation";
 import { Button } from "@/components/ui/button";
 import { carsData } from "@/data/cars";
 import { useGarageStore } from "@/store/garageStore";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import Garage from "@/assets/Garage.gif"
+import DisplayCard from "@/components/DisplayCard/DisplayCard";
 
 export const Route = createFileRoute("/garage")({
   component: RouteComponent,
@@ -40,7 +40,7 @@ function RouteComponent() {
               {/* <h2 className="text-2xl py-12">{garageCars.length} Cars In Your Garage</h2> */}
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3  gap-10">
                 {garageCars.map((car, index) => (
-                  <GarageCard car={car} key={index} />
+                  <DisplayCard car={car} key={index} />
                 ))}
               </div>
             </div>

@@ -43,8 +43,8 @@ function FeaturedArticles() {
 
             <div className="relative col-span-12 row-span-1 md:col-span-4 md:row-span-3 rounded-2xl overflow-hidden">
               <img className="w-full h-full object-cover" src={imgSrc[0]} />
-              <div className=" p-6 absolute inset-0 items-center text-black bg-linear-to-b from-white to-transparent">
-                <h1 className="font-bold text-center md:text-left text-5xl ">
+              <div className=" p-6 absolute inset-0 items-center text-black bg-linear-to-b from-black dark:from-white to-transparent">
+                <h1 className="font-bold text-center md:text-left text-5xl dark:text-black text-white ">
                   Electric vs. Gas: The Shift
                 </h1>
                 <Button variant={"secondary"} className="absolute bottom-2 right-2"
@@ -59,8 +59,8 @@ function FeaturedArticles() {
 
             <div className="relative col-span-12 row-span-1 md:col-span-4 md:row-span-2 rounded-2xl overflow-hidden">
               <img className="w-full h-full object-cover" src={imgSrc[1]} />
-              <div className="absolute flex inset-0 p-4 bg-linear-to-b text-black from-white to-transparent">
-                <h1 className="text-4xl text-center font-bold">
+              <div className=" p-6 absolute inset-0 items-center text-black bg-linear-to-b from-black dark:from-white to-transparent">
+                <h1 className="font-bold text-center md:text-left text-5xl dark:text-black text-white ">
                   The Ferrari 488 Pista Price Surge Explained
                 </h1>
                 <Button variant={"secondary"} className="absolute bottom-2 right-2"

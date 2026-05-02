@@ -17,7 +17,7 @@ const articles = {
   ferrari488: {
     title: "The Ferrari 488 Pista Price Surge Explained.",
     content:
-      "The Ferrari 488 Pista has seen a notable rise in value, driven by limited production and strong demand among collectors.\n\nAs one of the अंतिम pure combustion performance Ferraris, it represents the end of an era before electrification becomes dominant.\n\nIts track-focused engineering and exclusivity make it a highly desirable asset in the high-end automotive market.",
+      "The Ferrari 488 Pista has seen a notable rise in value, driven by limited production and strong demand among collectors.\n\nAs one of the last pure combustion performance Ferrari's, it represents the end of an era before electrification becomes dominant.\n\nIts track-focused engineering and exclusivity make it a highly desirable asset in the high-end automotive market.",
     img: "https://images.unsplash.com/photo-1654442595448-bbb4d689f9f6?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
 

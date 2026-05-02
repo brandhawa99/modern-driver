@@ -9,7 +9,10 @@ function Hero() {
   return (
     <Dialog>
       <div className="w-full flex justify-center">
-        <article className='flex flex-col gap-4 mt-20 max-w-5xl'>
+        <article className='flex flex-col gap-4 mt-20 max-w-5xl relative'>
+          <div className='absolute -top-7.5'>
+            Trending Article
+          </div>
           <div className='flex flex-col md:flex-row gap-4 md:gap-2'>
             <h1 className="flex-1 text-5xl font-bold">
               Inside the Porsche 918 Spyder: Where Performance Meets Hybrid Innovation.
