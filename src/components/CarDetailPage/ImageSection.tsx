@@ -1,9 +1,9 @@
-import { useState } from "react"
-import { Skeleton } from "../ui/skeleton"
-import { cn } from "@/lib/utils"
+import { useState } from "react";
+import { Skeleton } from "../ui/skeleton";
+import { cn } from "@/lib/utils";
 
 export const ImageSection = ({ image }: { image: string }) => {
-  const [loaded, setLoaded] = useState(false)
+  const [loaded, setLoaded] = useState(false);
 
   return (
     <section className="relative w-full h-[60vh] overflow-hidden mt-10">
@@ -20,10 +20,10 @@ export const ImageSection = ({ image }: { image: string }) => {
           onLoad={() => setLoaded(true)}
           className={cn(
             "w-full h-auto max-h-full object-contain transition-opacity duration-500",
-            loaded ? "opacity-100" : "opacity-0"
+            loaded ? "opacity-100" : "opacity-0",
           )}
         />
       </div>
     </section>
-  )
-}
+  );
+};

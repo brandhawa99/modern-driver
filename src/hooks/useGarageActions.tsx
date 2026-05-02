@@ -11,7 +11,9 @@ function useGarageActions() {
   function add(car: Car) {
     addCar(car.id);
     toast("Car Added To Your Garage!", {
-      description: <span className="text-foreground">{`${car.make} ${car.model}`}</span>,
+      description: (
+        <span className="text-foreground">{`${car.make} ${car.model}`}</span>
+      ),
       action: {
         label: "View",
         onClick: () => navigate({ to: "/garage" }),
@@ -22,7 +24,9 @@ function useGarageActions() {
   function remove(car: Car) {
     removeCar(car.id);
     toast("Car Removed From Garage", {
-      description: <span className="text-foreground">{`${car.make} ${car.model}`}</span>,
+      description: (
+        <span className="text-foreground">{`${car.make} ${car.model}`}</span>
+      ),
       action: {
         label: "Undo",
         onClick: () => addCar(car.id),

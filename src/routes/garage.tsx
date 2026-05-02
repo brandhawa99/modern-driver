@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { carsData } from "@/data/cars";
 import { useGarageStore } from "@/store/garageStore";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import Garage from "@/assets/Garage.gif"
+import Garage from "@/assets/Garage.gif";
 import DisplayCard from "@/components/DisplayCard/DisplayCard";
 
 export const Route = createFileRoute("/garage")({
@@ -12,7 +12,7 @@ export const Route = createFileRoute("/garage")({
 
 function RouteComponent() {
   const garageIds = useGarageStore((state) => state.garageIds);
-  const garageCars = carsData.filter((c) => garageIds[c.id])
+  const garageCars = carsData.filter((c) => garageIds[c.id]);
 
   // const avgValue = totalValue / garageCars.length
   return (
@@ -27,11 +27,13 @@ function RouteComponent() {
               </div>
               <h1 className="font-bold">Your Collection is currently empty.</h1>
             </div>
-            <p className="max-w-md dark:text-gray-400 text-center">Start exploring our curated collection to discover rare automotive masterpieces and begin your collection!</p>
-            <Button asChild >
+            <p className="max-w-md dark:text-gray-400 text-center">
+              Start exploring our curated collection to discover rare automotive
+              masterpieces and begin your collection!
+            </p>
+            <Button asChild>
               <Link to="/showroom">Add Cars</Link>
             </Button>
-
           </div>
         ) : (
           <div className="flex flex-col items-center">
@@ -44,11 +46,9 @@ function RouteComponent() {
                 ))}
               </div>
             </div>
-          </div >
+          </div>
         )}
       </div>
-
-    </div >
-
-  )
+    </div>
+  );
 }

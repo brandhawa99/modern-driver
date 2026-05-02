@@ -26,5 +26,6 @@ export default defineConfig([
       ecmaVersion: 2020,
       globals: globals.browser,
     },
+    ignores: ["/src/component/ui"],
   },
 ]);

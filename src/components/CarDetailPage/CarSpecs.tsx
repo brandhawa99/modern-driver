@@ -21,5 +21,5 @@ export const CarSpecs = ({ specs }: { specs: [string, string][] }) => {
         ))}
       </div>
     </section>
-  )
-} 
+  );
+};

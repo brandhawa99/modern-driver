@@ -12,7 +12,6 @@ interface HeartButtonProps {
 }
 
 export default function HeartButton({ isInGarage, carId }: HeartButtonProps) {
-
   const { addCar, removeCar } = useGarageStore();
   const navigate = useNavigate();
   function AddToGarage(carID: string): void {
@@ -32,7 +31,6 @@ export default function HeartButton({ isInGarage, carId }: HeartButtonProps) {
     toast("Car Remove From Garage :(");
   }
 
-
   return (
     <Tooltip>
       <TooltipTrigger asChild>
@@ -43,14 +41,16 @@ export default function HeartButton({ isInGarage, carId }: HeartButtonProps) {
             "backdrop-blur-md border border-white/20",
             isInGarage
               ? "bg-white/30 hover:bg-white/50"
-              : "bg-black/20 hover:bg-black/30"
+              : "bg-black/20 hover:bg-black/30",
           )}
-          onClick={() => isInGarage ? RemoveFromGarage(carId) : AddToGarage(carId)}
+          onClick={() =>
+            isInGarage ? RemoveFromGarage(carId) : AddToGarage(carId)
+          }
         >
           <HeartIcon
             className={cn(
               "transition-all duration-200 drop-shadow-sm",
-              isInGarage ? "scale-110" : "scale-100 hover:scale-105"
+              isInGarage ? "scale-110" : "scale-100 hover:scale-105",
             )}
             color={isInGarage ? "red" : "white"}
             weight={isInGarage ? "fill" : "regular"}
@@ -61,8 +61,5 @@ export default function HeartButton({ isInGarage, carId }: HeartButtonProps) {
         <p>{isInGarage ? "Remove from garage" : "Add to garage"}</p>
       </TooltipContent>
     </Tooltip>
-
-
-  )
-
+  );
 }

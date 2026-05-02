@@ -1,4 +1,3 @@
-import { carsData, type Car } from "@/data/cars";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 

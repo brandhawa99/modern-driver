@@ -1,4 +1,3 @@
-
 import type { Car } from "@/data/cars";
 import { Card, CardAction } from "../ui/card";
 import { Link, useNavigate } from "@tanstack/react-router";
@@ -23,25 +22,25 @@ export default function CarCard({ car }: { car: Car }) {
   } = car;
   const navigate = useNavigate();
 
-  const garageIds = useGarageStore((state) => state.garageIds)
+  const garageIds = useGarageStore((state) => state.garageIds);
   const { addCar, removeCar } = useGarageStore();
-  const isInGarage = garageIds[car?.id]
+  const isInGarage = garageIds[car?.id];
   function AddToGarage(carID: string): void {
     addCar(carID);
     toast("Car Added To Your Garage!", {
       action: {
         label: "View",
-        onClick: () => { navigate({ to: "/garage" }) }
-      }
-    })
-
+        onClick: () => {
+          navigate({ to: "/garage" });
+        },
+      },
+    });
   }
 
   function RemoveFromGarage(carID: string): void {
-    removeCar(carID)
-    toast("Car Remove From Garage :(")
+    removeCar(carID);
+    toast("Car Remove From Garage :(");
   }
-
 
   return (
     <Card className="p-0 overflow-hidden">
@@ -89,16 +88,17 @@ export default function CarCard({ car }: { car: Car }) {
                 "cursor-pointer rounded-full h-9 w-9 p-0 transition-all duration-200 active:scale-75",
                 isInGarage
                   ? "bg-pink-200 hover:bg-pink-300 dark:bg-pink-200/30 dark:hover:bg-pink-200/60"
-                  : "hover:bg-pink-100 dark:hover:bg-pink-950/40"
+                  : "hover:bg-pink-100 dark:hover:bg-pink-950/40",
               )}
               onClick={
-                isInGarage
-                  ? () => RemoveFromGarage(id)
-                  : () => AddToGarage(id)
+                isInGarage ? () => RemoveFromGarage(id) : () => AddToGarage(id)
               }
             >
               <HeartIcon
-                className={cn("transition-transform duration-200", isInGarage && "scale-110")}
+                className={cn(
+                  "transition-transform duration-200",
+                  isInGarage && "scale-110",
+                )}
                 color="red"
                 weight={isInGarage ? "fill" : "regular"}
               />

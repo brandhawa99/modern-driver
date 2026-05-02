@@ -1,14 +1,14 @@
-import type { Car } from "@/data/cars"
-import { Link } from "@tanstack/react-router"
-import { Button } from "../ui/button"
-import { Card } from "../ui/card"
-import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip"
-import { HeartIcon } from "@phosphor-icons/react"
-import { useGarageStore } from "@/store/garageStore"
+import type { Car } from "@/data/cars";
+import { Link } from "@tanstack/react-router";
+import { Button } from "../ui/button";
+import { Card } from "../ui/card";
+import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
+import { HeartIcon } from "@phosphor-icons/react";
+import { useGarageStore } from "@/store/garageStore";
 
 const GarageCard = ({ car }: { car: Car }) => {
-  const { image, model, year, make, price, id, condition } = car
-  const { removeCar } = useGarageStore()
+  const { image, model, year, make, price, id, condition } = car;
+  const { removeCar } = useGarageStore();
 
   return (
     <Card className="p-0 overflow-hidden">
@@ -16,7 +16,8 @@ const GarageCard = ({ car }: { car: Car }) => {
         <img
           src={image}
           alt={model}
-          className="w-full aspect-4/3 object-cover transition-transform duration-300 hover:scale-[1.02]" />
+          className="w-full aspect-4/3 object-cover transition-transform duration-300 hover:scale-[1.02]"
+        />
         <div className="absolute top-4 left-4 px-3 py-1 text-xs tracking-widest uppercase rounded-full bg-black/70 text-white backdrop-blur">
           {condition}
         </div>
@@ -31,7 +32,8 @@ const GarageCard = ({ car }: { car: Car }) => {
               <HeartIcon
                 className="transition-transform duration-200 scale-110"
                 color="red"
-                weight={"fill"} />
+                weight={"fill"}
+              />
             </Button>
           </TooltipTrigger>
           <TooltipContent>
@@ -79,13 +81,12 @@ const GarageCard = ({ car }: { car: Car }) => {
           variant="outline"
           className="w-full tracking-widest uppercase text-xs py-5"
         >
-          <Link to="/showroom/$carId" params={{ carId: id }} >
+          <Link to="/showroom/$carId" params={{ carId: id }}>
             View Details
           </Link>
         </Button>
       </div>
-    </Card >
-  )
-
-}
-export default GarageCard
+    </Card>
+  );
+};
+export default GarageCard;

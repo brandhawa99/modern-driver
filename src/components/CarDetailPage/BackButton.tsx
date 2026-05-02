@@ -1,17 +1,17 @@
-import { Link, useCanGoBack, useRouter } from "@tanstack/react-router"
-import { Button } from "../ui/button"
-import { ArrowLeftIcon } from "@phosphor-icons/react"
+import { Link, useCanGoBack, useRouter } from "@tanstack/react-router";
+import { Button } from "../ui/button";
+import { ArrowLeftIcon } from "@phosphor-icons/react";
 
 const BackButton = () => {
-  const router = useRouter()
-  const canGoBack = useCanGoBack()
+  const router = useRouter();
+  const canGoBack = useCanGoBack();
   const navigateBack = () => {
     if (window.history.length > 1) {
-      router.history.back()
+      router.history.back();
     } else {
-      router.navigate({ to: "/showroom" })
+      router.navigate({ to: "/showroom" });
     }
-  }
+  };
 
   const content = (
     <div className="flex items-center gap-2 justify-center">
@@ -21,25 +21,24 @@ const BackButton = () => {
       />
       Go Back
     </div>
-  )
+  );
 
   if (canGoBack) {
     return (
       <Button
         variant="link"
         className="group text-default"
-        onClick={() => navigateBack()}    >
+        onClick={() => navigateBack()}
+      >
         {content}
       </Button>
-    )
+    );
   }
 
   return (
     <Button asChild variant="link" className="group text-default">
-      <Link to="/showroom">
-        {content}
-      </Link>
+      <Link to="/showroom">{content}</Link>
     </Button>
-  )
-}
-export default BackButton
+  );
+};
+export default BackButton;
