@@ -1,17 +1,17 @@
-import type { Bid } from "@/store/auctionStore"
-import { formatPrice } from "@/lib/utils"
-import { formatDistanceToNow } from "date-fns"
-import { TrophyIcon } from "@phosphor-icons/react"
+import type { Bid } from "@/store/auctionStore";
+import { formatPrice } from "@/lib/utils";
+import { formatDistanceToNow } from "date-fns";
+import { TrophyIcon } from "@phosphor-icons/react";
 
-const BidHistory = ({ bids, hasEnded }: { bids: Bid[], hasEnded: boolean }) => {
-  const winner = hasEnded ? bids[0] : null
+const BidHistory = ({ bids, hasEnded }: { bids: Bid[]; hasEnded: boolean }) => {
+  const winner = hasEnded ? bids[0] : null;
 
   if (bids.length === 0) {
     return (
       <p className="text-center text-muted-foreground text-sm py-4">
         No bids yet
       </p>
-    )
+    );
   }
 
   return (
@@ -48,19 +48,23 @@ const BidHistory = ({ bids, hasEnded }: { bids: Bid[], hasEnded: boolean }) => {
                   Winner
                 </span>
               )}
-              <span className="text-sm text-muted-foreground">{bid.bidder}</span>
+              <span className="text-sm text-muted-foreground">
+                {bid.bidder}
+              </span>
             </div>
             <div className="text-right">
               <p className="font-mono text-sm">{formatPrice(bid.amount)}</p>
               <p className="text-[10px] text-muted-foreground">
-                {formatDistanceToNow(new Date(bid.timestamp), { addSuffix: true })}
+                {formatDistanceToNow(new Date(bid.timestamp), {
+                  addSuffix: true,
+                })}
               </p>
             </div>
           </div>
         ))}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default BidHistory
+export default BidHistory;

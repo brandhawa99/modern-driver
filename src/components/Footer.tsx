@@ -7,15 +7,15 @@ export default function Footer() {
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
-      behavior: 'smooth',
+      behavior: "smooth",
     });
   };
   const getYear = () => {
     return new Date().getFullYear();
-  }
+  };
 
   return (
-    <footer className="max-w-8xl border-t pyt-10 mt-10" >
+    <footer className="max-w-8xl border-t pyt-10 mt-10">
       <div className="flex flex-col gap-20 md:flex-row py-10">
         <p className="px-8">Navigation</p>
         <div>
@@ -25,7 +25,9 @@ export default function Footer() {
               <FooterLink to={"/auction"}>/Auction/</FooterLink>
               <FooterLink to={"/showroom"}>/Showroom/</FooterLink>
               <FooterLink to={"/garage"}>/Garage/</FooterLink>
-              <FooterLink to={"mailto:baltej.randhawa0@gmail.com"}>/Contact/</FooterLink>
+              <FooterLink to={"mailto:baltej.randhawa0@gmail.com"}>
+                /Contact/
+              </FooterLink>
             </div>
           </div>
         </div>
@@ -57,12 +59,23 @@ export default function Footer() {
         </div>
         <p className="">Made By: Baltej Randhawa</p>
       </div>
-    </footer >
-  )
+    </footer>
+  );
 }
 
-const FooterLink = ({ to, children }: { to: string, children: React.ReactNode }) => {
+const FooterLink = ({
+  to,
+  children,
+}: {
+  to: string;
+  children: React.ReactNode;
+}) => {
   return (
-    <Link className="font-heading text-5xl lg:text-7xl hover:text-muted-foreground font-light transition-all duration:300" to={to}>{children}</Link>
-  )
-}
+    <Link
+      className="font-heading text-5xl lg:text-7xl hover:text-muted-foreground font-light transition-all duration:300"
+      to={to}
+    >
+      {children}
+    </Link>
+  );
+};

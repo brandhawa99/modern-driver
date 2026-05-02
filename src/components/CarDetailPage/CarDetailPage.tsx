@@ -18,9 +18,9 @@ interface CarDetailPageProps {
 export function CarDetailPage({ car }: CarDetailPageProps) {
   const tags = getCarTags(car);
   const specs = getCarSpecs(car);
-  const { isAuction } = car
+  const { isAuction } = car;
 
-  const { isInGarage, remove, add } = useGarageActions()
+  const { isInGarage, remove, add } = useGarageActions();
 
   return (
     <article className="min-h-screen bg-background text-foreground">
@@ -30,7 +30,11 @@ export function CarDetailPage({ car }: CarDetailPageProps) {
           <div className="flex flex-wrap gap-2 mb-8 items-center justify-between">
             <BackButton />
             <div className="flex gap-2">
-              {tags.map((t) => <Badge variant="outline" className="p-2" key={t}>{t}</Badge>)}
+              {tags.map((t) => (
+                <Badge variant="outline" className="p-2" key={t}>
+                  {t}
+                </Badge>
+              ))}
             </div>
           </div>
           {car.isAuction && <AuctionData car={car} />}
@@ -49,9 +53,10 @@ export function CarDetailPage({ car }: CarDetailPageProps) {
               {car.location}, {countryCodeMap[car.countryCode]}
               <span className="text-2xl">·</span>
               <span>
-                <img src={`https://flagsapi.com/${car.countryCode}/flat/24.png`} />
+                <img
+                  src={`https://flagsapi.com/${car.countryCode}/flat/24.png`}
+                />
               </span>
-
             </span>
           </div>
         </div>
@@ -60,55 +65,52 @@ export function CarDetailPage({ car }: CarDetailPageProps) {
 
         <section className="py-12 flex flex-col md:flex-row md:items-center md:justify-between gap-8">
           <div>
-            {
-              isAuction ?
-                <>
-                  <p className="text-sm tracking-widest uppercase text-muted-foreground font-sans mb-2">
-                    Auction Ends
-                  </p>
-                  <p className="font-heading font-light text-2xl sm:text-3xl md:text-4xl text-foreground">
-                    {new Date(car.endTime!).toLocaleDateString("en-US", {
-                      day: "numeric",
-                      month: "long",
-                      year: "numeric",
-                    })}, {new Date(car.endTime!).toLocaleTimeString("en-US", {
-                      hour: "numeric",
-                      minute: "2-digit",
-                    })}
-                  </p>
-                </>
-                :
-                <>
-                  <p className="text-sm tracking-widest uppercase text-muted-foreground font-sans mb-2">
-                    Asking Price
-                  </p>
-                  <p className="font-heading font-light text-5xl md:text-6xl text-foreground">
-                    {formatPrice(car.price)}
-                  </p>
-                </>
-            }
+            {isAuction ? (
+              <>
+                <p className="text-sm tracking-widest uppercase text-muted-foreground font-sans mb-2">
+                  Auction Ends
+                </p>
+                <p className="font-heading font-light text-2xl sm:text-3xl md:text-4xl text-foreground">
+                  {new Date(car.endTime!).toLocaleDateString("en-US", {
+                    day: "numeric",
+                    month: "long",
+                    year: "numeric",
+                  })}
+                  ,{" "}
+                  {new Date(car.endTime!).toLocaleTimeString("en-US", {
+                    hour: "numeric",
+                    minute: "2-digit",
+                  })}
+                </p>
+              </>
+            ) : (
+              <>
+                <p className="text-sm tracking-widest uppercase text-muted-foreground font-sans mb-2">
+                  Asking Price
+                </p>
+                <p className="font-heading font-light text-5xl md:text-6xl text-foreground">
+                  {formatPrice(car.price)}
+                </p>
+              </>
+            )}
           </div>
 
           <div className="flex flex-col gap-3 md:items-end">
-
-            {
-              !isAuction &&
-              <Button
-                className="w-full flex-1 py-3 px-8 uppercase text-sm cursor-pointer font-sans"
-              >
+            {!isAuction && (
+              <Button className="w-full flex-1 py-3 px-8 uppercase text-sm cursor-pointer font-sans">
                 Enquire
               </Button>
-            }
+            )}
             <Button
               variant={isInGarage(car.id) ? `destructive` : "secondary"}
               className="w-full flex-1 py-3 px-8 uppercase text-sm cursor-pointer font-sans "
-              onClick={
-                isInGarage(car.id)
-                  ? () => remove(car)
-                  : () => add(car)
-              }
+              onClick={isInGarage(car.id) ? () => remove(car) : () => add(car)}
             >
-              {isInGarage(car.id) ? <TrashIcon size={32} /> : <PlusCircleIcon size={32} />}
+              {isInGarage(car.id) ? (
+                <TrashIcon size={32} />
+              ) : (
+                <PlusCircleIcon size={32} />
+              )}
               <span className="w-22.5">
                 {isInGarage(car.id) ? "Remove" : "Add"} Car
               </span>
@@ -127,9 +129,8 @@ export function CarDetailPage({ car }: CarDetailPageProps) {
             Modern Driver
           </span>
         </div>
-      </div >
-      <div>
       </div>
-    </article >
+      <div></div>
+    </article>
   );
 }
