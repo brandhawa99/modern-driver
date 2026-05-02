@@ -1,3 +1,4 @@
+import CarsSection from "@/components/HomePage/CarsSection";
 import CTA from "@/components/HomePage/CTA";
 import FeaturedArticles from "@/components/HomePage/FeaturedArticles";
 import Hero from "@/components/HomePage/Hero";
@@ -12,6 +13,7 @@ function Index() {
     <div className="min-h-[calc(100vh-80px)] mx-2 md:mx-8">
       <Hero />
       <FeaturedArticles />
+      <CarsSection />
       <CTA />
     </div>
   );

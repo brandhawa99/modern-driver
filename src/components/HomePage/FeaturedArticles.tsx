@@ -14,14 +14,18 @@ function FeaturedArticles() {
   const [activeDialog, setActiveDialog] = useState<ArticleProps | null>(null)
 
   const openDialog = (data: ArticleProps) => {
-    setActiveDialog(data)
+    setActiveDialog({
+      img: data.img,
+      title: data.title,
+      content: data.content
+    })
     setOpen(true)
   }
   return (
     <Dialog open={open} onOpenChange={setOpen}>
 
       <div className="flex w-full justify-center">
-        <div className="flex justify-center mt-20 max-w-5xl flex-col">
+        <div className="flex flex-col justify-center mt-20 max-w-5xl">
           <h1 className="text-4xl font-bold">Featured Articles</h1>
           <div className="grid grid-cols-12 auto-rows-[160px] gap-4 w-full mt-10">
             <div className="col-span-12 relative row-span-1 md:col-span-8 md:row-span-2 rounded-2xl bg-accent p-6 flex flex-col justify-center items-center">
@@ -30,12 +34,7 @@ function FeaturedArticles() {
               </h1>
               <Button variant={"secondary"} className="absolute bottom-2 right-2"
                 onClick={() => {
-                  openDialog({
-                    img: articles.artOfSpeed.img,
-                    title: articles.artOfSpeed.title,
-                    content: articles.artOfSpeed.content,
-                  })
-                  setOpen(true)
+                  openDialog(articles.artOfSpeed)
                 }}
               >
                 Read Article
@@ -50,12 +49,7 @@ function FeaturedArticles() {
                 </h1>
                 <Button variant={"secondary"} className="absolute bottom-2 right-2"
                   onClick={() => {
-                    openDialog({
-                      img: articles.electricVsGas.img,
-                      title: articles.electricVsGas.title,
-                      content: articles.electricVsGas.content,
-                    })
-                    setOpen(true)
+                    openDialog(articles.electricVsGas)
                   }}
                 >
                   Read Article
@@ -71,12 +65,7 @@ function FeaturedArticles() {
                 </h1>
                 <Button variant={"secondary"} className="absolute bottom-2 right-2"
                   onClick={() => {
-                    openDialog({
-                      img: articles.ferrari488.img,
-                      title: articles.ferrari488.title,
-                      content: articles.ferrari488.content,
-                    })
-                    setOpen(true)
+                    openDialog(articles.ferrari488)
                   }}
                 >
                   Read Article
@@ -91,12 +80,7 @@ function FeaturedArticles() {
                 </h1>
                 <Button variant={"secondary"} className="absolute bottom-2 right-2"
                   onClick={() => {
-                    openDialog({
-                      img: articles.ultimateBuild.img,
-                      title: articles.ultimateBuild.title,
-                      content: articles.ultimateBuild.content,
-                    })
-                    setOpen(true)
+                    openDialog(articles.ultimateBuild)
                   }}
                 >
                   Read Article
