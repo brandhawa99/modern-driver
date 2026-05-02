@@ -3,7 +3,6 @@ import { GarageValuation } from "@/components/Garage/GarageValuation";
 import { Button } from "@/components/ui/button";
 import { carsData } from "@/data/cars";
 import { useGarageStore } from "@/store/garageStore";
-import { GarageIcon } from "@phosphor-icons/react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import Garage from "@/assets/Garage.gif"
 
