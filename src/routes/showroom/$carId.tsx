@@ -1,6 +1,7 @@
 import { useCar } from "@/hooks/useCars";
 import { createFileRoute } from "@tanstack/react-router";
 import { CarDetailPage } from "@/components/CarDetailPage/CarDetailPage";
+import { useMemo } from "react";
 
 
 
@@ -11,6 +12,8 @@ export const Route = createFileRoute("/showroom/$carId")({
 function RouteComponent() {
   const { carId } = Route.useParams();
   const { data, isPending, isError } = useCar(carId);
+  const car = useMemo(() => data, [data?.id])
+
   if (isError) {
     return <div>Error loading car data.</div>
   }
@@ -19,6 +22,6 @@ function RouteComponent() {
   }
 
   return (
-    <CarDetailPage car={data} />
+    <CarDetailPage car={car!} />
   )
 }

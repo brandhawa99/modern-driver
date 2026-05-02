@@ -9,52 +9,59 @@ export interface Bid {
 }
 
 interface AuctionStore {
-  bids: Bid[];
-  currentBid: number;
-  carId: string | null;
-  reservePrice: number;
-  isReserveMet: boolean;
-  bidsByCarId: Record<string, number>; // add this
-  initAuction: (
-    carId: string,
-    startingBid: number,
-    reservePrice: number,
-  ) => void;
+  bids: Record<string, Bid[]>;
+  bidsByCarId: Record<string, number>;
+  initAuction: (carId: string, startingBid: number) => void;
   addBid: (bid: Bid) => void;
+  placeBid: (carId: string) => void;
 }
 
 export const useAuctionStore = create<AuctionStore>((set, get) => ({
-  bids: [],
-  currentBid: 0,
-  carId: null,
-  reservePrice: 0,
-  isReserveMet: false,
+  bids: {},
   bidsByCarId: {},
 
-  initAuction: (carId, startingBid, reservePrice) =>
+  initAuction: (carId, startingBid) =>
     set((state) => {
-      if (state.carId == carId) return {};
+      // already initialized for this car — don't overwrite existing state
+      if (state.bidsByCarId[carId] !== undefined) return {};
+
       return {
-        carId,
-        currentBid: startingBid,
-        reservePrice,
-        isReserveMet: startingBid >= reservePrice,
-        bids: [],
         bidsByCarId: {
           ...state.bidsByCarId,
           [carId]: startingBid,
+        },
+        bids: {
+          ...state.bids,
+          [carId]: [],
         },
       };
     }),
 
   addBid: (bid) =>
-    set((state) => ({
-      bids: [bid, ...state.bids],
-      currentBid: bid.amount,
-      isReserveMet: bid.amount >= state.reservePrice,
-      bidsByCarId: {
-        ...state.bidsByCarId,
-        [bid.carId]: bid.amount, // update the map on every bid
-      },
-    })),
+    set((state) => {
+      const newAmount = bid.amount;
+
+      return {
+        bids: {
+          ...state.bids,
+          [bid.carId]: [bid, ...(state.bids[bid.carId] ?? [])],
+        },
+        bidsByCarId: {
+          ...state.bidsByCarId,
+          [bid.carId]: newAmount,
+        },
+      };
+    }),
+
+  placeBid: (carId) => {
+    const { bidsByCarId, addBid } = get();
+    const currentBid = bidsByCarId[carId] ?? 0;
+    addBid({
+      id: crypto.randomUUID(),
+      bidder: "You",
+      amount: currentBid + 500,
+      timestamp: new Date().toISOString(),
+      carId,
+    });
+  },
 }));

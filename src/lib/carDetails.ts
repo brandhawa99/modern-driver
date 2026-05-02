@@ -1,5 +1,4 @@
 import type { Car } from "@/data/cars";
-import { formatPrice } from "./utils";
 import { countryCodeMap } from "./countryCodeToName";
 
 const conditionLabel: Record<Car["condition"], string> = {
@@ -31,10 +30,5 @@ export function getCarSpecs(car: Car): [string, string][] {
     ["Mileage", `${formatMileage(car.mileage)} mi`],
     ["Location", `${car.location} ·  ${countryCodeMap[car.countryCode]}`],
   ];
-
-  if (car.isAuction) {
-    specs.push(["Reserve Price", formatPrice(car.reservePrice!)]);
-  }
-
   return specs;
 }

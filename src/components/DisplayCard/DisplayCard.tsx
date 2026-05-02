@@ -24,7 +24,6 @@ const DisplayCard = ({ car }: { car: Car }) => {
     isAuction,
     condition,
     engine,
-    reservePrice,
     currentBid
   } = car;
 
@@ -52,50 +51,49 @@ const DisplayCard = ({ car }: { car: Car }) => {
               </div>
             }
           </div>
-
-          <div className="px-4 pt-4 space-y-1.5 flex flex-col">
-            <CarHeader year={year} make={make} model={model} />
-            <CountrySection location={location} countryCode={countryCode} />
-            <p className="text-sm text-muted-foreground leading-tight flex flex-wrap gap-x-3 gap-y-1">
-              <span className="inline-flex items-center gap-1 whitespace-nowrap">
-                <GaugeIcon size={16} />
-                {mileage.toLocaleString()} mi
-              </span>
-
-              <span className="inline-flex items-center gap-1 whitespace-nowrap">
-                <EngineIcon size={16} />
-                {engine.displacement} {engine.aspiration} {engine.type}
-              </span>
-
-              <span className="inline-flex items-center gap-1 whitespace-nowrap">
-                <SpeedometerIcon size={16} />
-                {engine.horsepower} HP
-              </span>
-
-              <span className="inline-flex items-center gap-1 whitespace-nowrap">
-                <MedalIcon size={16} />
-                {condition}
-              </span>
-            </p>
-          </div>
         </Link>
+
+        <div className="px-4 pt-4 space-y-1.5 flex flex-col">
+          <CarHeader year={year} make={make} model={model} />
+          <CountrySection location={location} countryCode={countryCode} />
+          <p className="text-sm text-muted-foreground leading-tight flex flex-wrap gap-x-3 gap-y-1">
+            <span className="inline-flex items-center gap-1 whitespace-nowrap">
+              <GaugeIcon size={16} />
+              {mileage.toLocaleString()} mi
+            </span>
+
+            <span className="inline-flex items-center gap-1 whitespace-nowrap">
+              <EngineIcon size={16} />
+              {engine.displacement} {engine.aspiration} {engine.type}
+            </span>
+
+            <span className="inline-flex items-center gap-1 whitespace-nowrap">
+              <SpeedometerIcon size={16} />
+              {engine.horsepower} HP
+            </span>
+
+            <span className="inline-flex items-center gap-1 whitespace-nowrap">
+              <MedalIcon size={16} />
+              {condition}
+            </span>
+          </p>
+        </div>
         <div className={cn("absolute top-2 right-2 hidden group-hover:flex", isInGarage && "flex")} onClick={e => e.stopPropagation()}>
           <HeartButton isInGarage={isInGarage} carId={id} />
         </div>
       </div >
-      <ActionSection isAuction={isAuction} currentBid={topBid} price={price} reservePrice={reservePrice} id={id} />
+      <ActionSection isAuction={isAuction} currentBid={topBid} price={price} id={id} />
     </Card >
   )
 
 }
 
-type ActionSectionProps = Pick<Car, "currentBid" | "price" | "reservePrice" | "id"> & { isAuction: boolean }
+type ActionSectionProps = Pick<Car, "currentBid" | "price" | "id"> & { isAuction: boolean }
 
 
-const ActionSection = ({ isAuction, currentBid, price, reservePrice, id }: ActionSectionProps) => {
+const ActionSection = ({ isAuction, currentBid, price, id }: ActionSectionProps) => {
   const label = isAuction ? "Current Bid" : "Price";
   const primaryValue = isAuction ? currentBid : price;
-  const showReserve = isAuction && reservePrice;
   return (
     <CardAction className="w-full px-4 pb-4 pt-2 border-t border-border/50 flex flex-col gap-4">
 
@@ -110,13 +108,10 @@ const ActionSection = ({ isAuction, currentBid, price, reservePrice, id }: Actio
           </p>
         </div>
 
-        {showReserve && (
-          <div className="space-y-0.5 text-right">
-            <p className="text-[10px] tracking-widest text-muted-foreground uppercase">
-              Reserve
-            </p>
-            <p className="text-lg font-semibold leading-tight">
-              USD ${reservePrice.toLocaleString()}
+        {isAuction && (
+          <div className="rounded-2xl space-y-0.5 text-right bg-primary/80 p-2 ">
+            <p className=" text-white px-1 text-sm text-center">
+              Has Reserve
             </p>
           </div>
         )}
@@ -144,7 +139,7 @@ type CarHeaderProps = Pick<Car, "year" | "make" | "model">
 
 const CarHeader = ({ year, make, model }: CarHeaderProps) => {
   return (
-    <h3 className="text-lg font-semibold leading-tight">
+    <h3 className="text-lg font-semibold leading-tight cursor-text select-text">
       {year} {make} {model}
     </h3>
   )

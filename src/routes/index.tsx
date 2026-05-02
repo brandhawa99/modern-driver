@@ -1,3 +1,7 @@
+import CarsSection from "@/components/HomePage/CarsSection";
+import CTA from "@/components/HomePage/CTA";
+import FeaturedArticles from "@/components/HomePage/FeaturedArticles";
+import Hero from "@/components/HomePage/Hero";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/")({
@@ -6,8 +10,11 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   return (
-    <div className="bg-[--background]">
-      <h3>Welcome Home!</h3>
+    <div className="min-h-[calc(100vh-80px)] mx-2 md:mx-8">
+      <Hero />
+      <FeaturedArticles />
+      <CarsSection />
+      <CTA />
     </div>
   );
 }

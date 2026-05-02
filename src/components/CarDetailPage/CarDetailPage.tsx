@@ -18,6 +18,7 @@ interface CarDetailPageProps {
 export function CarDetailPage({ car }: CarDetailPageProps) {
   const tags = getCarTags(car);
   const specs = getCarSpecs(car);
+  const { isAuction } = car
 
   const { isInGarage, remove, add } = useGarageActions()
 
@@ -59,21 +60,45 @@ export function CarDetailPage({ car }: CarDetailPageProps) {
 
         <section className="py-12 flex flex-col md:flex-row md:items-center md:justify-between gap-8">
           <div>
-            <p className="text-sm tracking-widest uppercase text-muted-foreground font-sans mb-2">
-              {car.isAuction ? "Starting Bid" : "Asking Price"}
-            </p>
-            <p className="font-heading font-light text-5xl md:text-6xl text-foreground">
-              {formatPrice(car.price)}
-            </p>
+            {
+              isAuction ?
+                <>
+                  <p className="text-sm tracking-widest uppercase text-muted-foreground font-sans mb-2">
+                    Auction Ends
+                  </p>
+                  <p className="font-heading font-light text-2xl sm:text-3xl md:text-4xl text-foreground">
+                    {new Date(car.endTime!).toLocaleDateString("en-US", {
+                      day: "numeric",
+                      month: "long",
+                      year: "numeric",
+                    })}, {new Date(car.endTime!).toLocaleTimeString("en-US", {
+                      hour: "numeric",
+                      minute: "2-digit",
+                    })}
+                  </p>
+                </>
+                :
+                <>
+                  <p className="text-sm tracking-widest uppercase text-muted-foreground font-sans mb-2">
+                    Asking Price
+                  </p>
+                  <p className="font-heading font-light text-5xl md:text-6xl text-foreground">
+                    {formatPrice(car.price)}
+                  </p>
+                </>
+            }
           </div>
 
           <div className="flex flex-col gap-3 md:items-end">
-            <Button
-              className="w-full flex-1 py-3 px-8 uppercase text-sm cursor-pointer font-sans"
-            >
-              {car.isAuction ? "Place Bid" : "Enquire"}
 
-            </Button>
+            {
+              !isAuction &&
+              <Button
+                className="w-full flex-1 py-3 px-8 uppercase text-sm cursor-pointer font-sans"
+              >
+                Enquire
+              </Button>
+            }
             <Button
               variant={isInGarage(car.id) ? `destructive` : "secondary"}
               className="w-full flex-1 py-3 px-8 uppercase text-sm cursor-pointer font-sans "
@@ -102,7 +127,7 @@ export function CarDetailPage({ car }: CarDetailPageProps) {
             Modern Driver
           </span>
         </div>
-      </div>
+      </div >
       <div>
       </div>
     </article >
