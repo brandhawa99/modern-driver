@@ -27,14 +27,20 @@ function FeaturedArticles() {
         <div className="flex flex-col justify-center mt-20 max-w-5xl">
           <h1 className="text-4xl font-bold">Featured Articles</h1>
           <div className="grid grid-cols-12 auto-rows-[160px] gap-4 w-full mt-10">
-            <div className="col-span-12 relative row-span-1 md:col-span-8 md:row-span-2 rounded-2xl bg-accent p-6 flex flex-col justify-center items-center">
+            <div className=" cursor-pointer col-span-12 relative row-span-1 md:col-span-8 md:row-span-2 rounded-2xl bg-accent p-6 flex flex-col justify-center items-center"
+              onClick={(e) => {
+                e.stopPropagation();
+                openDialog(articles.artOfSpeed);
+              }}
+            >
               <h1 className="font-bold text-3xl text-center">
                 The Art of Speed: Where Design Meets Performance
               </h1>
               <Button
                 variant={"secondary"}
                 className="absolute bottom-2 right-2"
-                onClick={() => {
+                onClick={(e) => {
+                  e.stopPropagation();
                   openDialog(articles.artOfSpeed);
                 }}
               >
@@ -42,7 +48,11 @@ function FeaturedArticles() {
               </Button>
             </div>
 
-            <div className="relative col-span-12 row-span-1 md:col-span-4 md:row-span-3 rounded-2xl overflow-hidden">
+            <div
+              onClick={() => {
+                openDialog(articles.electricVsGas);
+              }}
+              className="cursor-pointer relative col-span-12 row-span-1 md:col-span-4 md:row-span-3 rounded-2xl overflow-hidden">
               <img className="w-full h-full object-cover" src={imgSrc[0]} />
               <div className=" p-6 absolute inset-0 items-center text-black bg-linear-to-b from-black dark:from-white to-transparent">
                 <h1 className="font-bold text-center md:text-left text-5xl dark:text-black text-white ">
@@ -50,8 +60,9 @@ function FeaturedArticles() {
                 </h1>
                 <Button
                   variant={"secondary"}
-                  className="absolute bottom-2 right-2"
-                  onClick={() => {
+                  className="cursor-pointer absolute bottom-2 right-2"
+                  onClick={(e) => {
+                    e.stopPropagation();
                     openDialog(articles.electricVsGas);
                   }}
                 >
@@ -60,7 +71,12 @@ function FeaturedArticles() {
               </div>
             </div>
 
-            <div className="relative col-span-12 row-span-1 md:col-span-4 md:row-span-2 rounded-2xl overflow-hidden">
+            <div
+              onClick={() => {
+                openDialog(articles.ferrari488);
+              }}
+
+              className="cursor-pointer relative col-span-12 row-span-1 md:col-span-4 md:row-span-2 rounded-2xl overflow-hidden">
               <img className="w-full h-full object-cover" src={imgSrc[1]} />
               <div className=" p-6 absolute inset-0 items-center text-black bg-linear-to-b from-black dark:from-white to-transparent">
                 <h1 className="font-bold text-center md:text-left text-5xl dark:text-black text-white ">
@@ -69,7 +85,8 @@ function FeaturedArticles() {
                 <Button
                   variant={"secondary"}
                   className="absolute bottom-2 right-2"
-                  onClick={() => {
+                  onClick={(e) => {
+                    e.stopPropagation();
                     openDialog(articles.ferrari488);
                   }}
                 >
@@ -78,14 +95,17 @@ function FeaturedArticles() {
               </div>
             </div>
 
-            <div className="relative col-span-12 row-span-1 md:col-span-4 md:row-span-2 bg-secondary rounded-2xl p-6 flex flex-col justify-center gap-2">
+            <div
+              onClick={() => openDialog(articles.ultimateBuild)}
+              className="cursor-pointer relative col-span-12 row-span-1 md:col-span-4 md:row-span-2 bg-secondary rounded-2xl p-6 flex flex-col justify-center gap-2">
               <div className="absolute inset-0 flex items-center p-4 justify-center">
                 <h1>Inside the Ultimate Build: Engineering Without Limits</h1>
                 <Button
                   variant={"secondary"}
                   className="absolute bottom-2 right-2"
-                  onClick={() => {
+                  onClick={(e) => {
                     openDialog(articles.ultimateBuild);
+                    e.stopPropagation();
                   }}
                 >
                   Read Article
@@ -104,7 +124,7 @@ function FeaturedArticles() {
         title={activeDialog?.title}
         content={activeDialog?.content}
       />
-    </Dialog>
+    </Dialog >
   );
 }
 

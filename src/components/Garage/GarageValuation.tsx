@@ -40,7 +40,9 @@ export function GarageValuation({ cars }: { cars: Car[] }) {
         Fleet Valuation
       </p>
       <div className="flex gap-2 items-center">
-        <p className="font-cormorant text-5xl font-light mt-1">{formatted}</p>
+        <p className="font-cormorant text-3xl md:text-5xl font-light mt-1 inline-block min-w-[4ch] text-right">
+          {formatted}
+        </p>
         <TrendView isNeg={isNeg} percentageChange={percentageChange} />
       </div>
     </div>

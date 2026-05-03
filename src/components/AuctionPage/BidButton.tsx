@@ -3,6 +3,7 @@ import { useRef, useState } from "react";
 import { GavelIcon } from "@phosphor-icons/react";
 import { Button } from "../ui/button";
 import { useAuctionStore } from "@/store/auctionStore";
+import { useWebHaptics } from "web-haptics/react";
 import { formatPrice } from "@/lib/utils";
 
 const COLORS = [
@@ -29,9 +30,14 @@ const BidButton = ({
   const buttonRef = useRef<HTMLButtonElement>(null);
   const [disable, setDisable] = useState(false);
   const [buttonTxt, setButtonTxt] = useState("");
+  const { trigger } = useWebHaptics()
 
   const handleBid = () => {
     placeBid(carId);
+    trigger([
+      { duration: 30 },
+      { delay: 60, duration: 40, intensity: 1 },
+    ]);
 
     setDisable(true);
     setButtonTxt("Placing Bid...");

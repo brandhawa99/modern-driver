@@ -92,8 +92,7 @@ const DisplayCard = ({ car }: { car: Car }) => {
         </div>
         <div
           className={cn(
-            "absolute top-2 right-2 hidden group-hover:flex",
-            isInGarage && "flex",
+            "absolute top-2 right-2 flex",
           )}
           onClick={(e) => e.stopPropagation()}
         >
