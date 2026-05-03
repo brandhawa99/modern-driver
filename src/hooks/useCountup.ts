@@ -9,7 +9,11 @@ export function useCountUp(target: number, duration = 2000) {
 
   useEffect(() => {
     startTime.current = null;
-    trigger([{ duration: 2000 }], { intensity: 1 });
+    trigger([{ duration: duration }], { intensity: 1 });
+    setTimeout(() => {
+      trigger([{ duration: duration }], { intensity: 1 });
+    }, 1000);
+
     const animate = (timestamp: number) => {
       if (!startTime.current) startTime.current = timestamp;
       const elapsed = timestamp - startTime.current;
