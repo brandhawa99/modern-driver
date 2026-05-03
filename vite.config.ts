@@ -13,7 +13,7 @@ export default defineConfig({
       manifest: {
         name: "Modern Driver",
         short_name: "ModernDriver",
-        description: "Car News and Auction App",
+        description: "Car News and Auction App v0.0.2",
         display: "standalone",
         icons: [
           {
