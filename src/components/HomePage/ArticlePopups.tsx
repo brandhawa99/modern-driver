@@ -29,7 +29,7 @@ function ArticlePopups({ img, title, content }: ArticleProps) {
           </div>
         </div>
       </div>
-      <DialogDescription>
+      <DialogDescription className="hidden">
         Detailed view of the selected article.
       </DialogDescription>
     </DialogContent>
