@@ -1,5 +1,4 @@
 import { createFileRoute } from "@tanstack/react-router";
-import CarCard from "@/components/ShowroomPage/CarCard";
 import { carsData } from "@/data/cars";
 import DisplayCard from "@/components/DisplayCard/DisplayCard";
 export const Route = createFileRoute("/showroom/")({
