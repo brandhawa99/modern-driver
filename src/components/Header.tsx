@@ -19,7 +19,7 @@ export default function Header() {
             MODERN DRIVER
           </h1>
         </Link>
-        <div className="flex  items-center justify-center md:gap-2">
+        <div className="flex  items-center gap-1 justify-center md:gap-2">
           {headerLinks.map((link) => {
             const Icon = link.icon;
             return (
@@ -27,14 +27,15 @@ export default function Header() {
                 key={link.name}
                 asChild
                 variant="ghost"
-                className="px-4 py-3 hover:border-black transition-border transition-duration-800"
+                className="px-2 py-2 md:px-4 md:py-3 hover:border-black transition-border transition-duration-800"
               >
-                <Link to={link.to} className="flex items-center gap-2">
+                <Link to={link.to} className="flex items-center md:gap-2">
                   {({ isActive }) => (
                     <>
                       <Icon
                         weight={`${isActive ? "fill" : "regular"}`}
-                        className="md:w-6! md:h-6! shrink-0"
+                        style={{ width: 24, height: 24 }}
+                        className="shrink-0"
                       />
                       <span
                         className={cn(

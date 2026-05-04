@@ -13,7 +13,7 @@ export default defineConfig({
       manifest: {
         name: "Modern Driver",
         short_name: "ModernDriver",
-        description: "Car News and Auction App v0.0.2",
+        description: "Car News and Auction App v0.1.0",
         display: "standalone",
         icons: [
           {
@@ -24,6 +24,21 @@ export default defineConfig({
       },
       registerType: "autoUpdate",
       injectRegister: "auto",
+      workbox: {
+        runtimeCaching: [
+          {
+            urlPattern: ({ url }) => url.hostname === "flagsapi.com",
+            handler: "CacheFirst",
+            options: {
+              cacheName: "country-flags",
+              expiration: {
+                maxEntries: 100,
+                maxAgeSeconds: 60 * 60 * 24 * 30,
+              },
+            },
+          },
+        ],
+      },
     }),
     tanstackRouter({
       target: "react",

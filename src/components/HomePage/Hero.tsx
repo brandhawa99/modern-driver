@@ -2,48 +2,58 @@ import { Button } from "../ui/button";
 import { ArrowRightIcon } from "@phosphor-icons/react";
 import { Dialog, DialogTrigger } from "../ui/dialog";
 import ArticlePopups from "./ArticlePopups";
-import articles from "@/data/Articles";
+import { mainArticle } from "@/data/Articles";
 
 function Hero() {
-  const { img, title, content } = articles.porsche918;
+  const { img, title, content } = mainArticle;
+
   return (
     <Dialog>
-      <div className="w-full flex justify-center">
-        <article className="flex flex-col gap-4 mt-20 max-w-5xl relative">
-          <div className="absolute -top-7.5">Trending Article</div>
-          <div className="flex flex-col md:flex-row gap-4 md:gap-2">
-            <h1 className="flex-1 text-5xl font-bold">
+      <div className="relative w-full h-[90vh] min-h-150 overflow-hidden rounded-2xl">
+        <div className="max-w-5xl ">
+
+          {/* Full-bleed background image */}
+          <img
+            src="https://images.unsplash.com/photo-1596450886763-6f9b7f3cbd0a?q=80&w=1920&auto=format&fit=crop"
+            className="rounded-2xl absolute inset-0 w-full h-full object-cover"
+            alt="Porsche 918 Spyder"
+          />
+
+          {/* Gradient overlay — dark at bottom for text legibility */}
+          <div className="absolute inset-0 bg-linear-to-t from-black via-black/50 to-transparent" />
+
+          {/* Content pinned to bottom */}
+          <div className="absolute bottom-0 left-0 right-0 px-6 pb-12 md:px-16 md:pb-16 max-w-5xl">
+            {/* Badge */}
+            <span className="inline-block text-xs font-semibold tracking-widest uppercase text-white/60 border border-white/20 px-3 py-1 rounded-full mb-6">
+              Trending Article
+            </span>
+
+            <h1 className="text-4xl md:text-6xl font-bold text-white leading-tight max-w-2xl mb-4">
               Inside the Porsche 918 Spyder: Where Performance Meets Hybrid
               Innovation.
             </h1>
-            <p className="flex-1 flex flex-col">
-              The Porsche 918 Spyder stands as one of the most ambitiofus
-              engineering feats of the modern automotive era, seamlessly
-              blending cutting-edge hybrid technology with the raw performance
-              expected of a flagship supercar. Developed not just to compete,
-              but to redefine what was possible, the 918 pairs a naturally
-              aspirated V8 with advanced electric motors to deliver both
-              staggering speed and surprising efficiency. More than a showcase
-              of power, it represents a turning point—where sustainability and
-              performance are no longer opposing forces, but integral parts of
-              the same machine.
-              <DialogTrigger asChild>
-                <Button
-                  variant="link"
-                  className="text-default self-end group cursor-pointer"
-                >
-                  read more
-                  <ArrowRightIcon className="ease-in-out transition group-hover:translate-x-1" />
-                </Button>
-              </DialogTrigger>
-            </p>
+
+            {/* <p className="text-white/70 max-w-xl text-sm md:text-base leading-relaxed mb-8">
+            The Porsche 918 Spyder stands as one of the most ambitious
+            engineering feats of the modern automotive era, seamlessly blending
+            cutting-edge hybrid technology with the raw performance expected of
+            a flagship supercar.
+          </p> */}
+
+            <DialogTrigger asChild>
+              <Button
+                variant="outline"
+                className="group bg-transparent border-white/30 text-white hover:bg-white transition-all duration-300 cursor-pointer"
+              >
+                Read Article
+                <ArrowRightIcon className="transition-transform duration-300 ease-in-out group-hover:translate-x-1" />
+              </Button>
+            </DialogTrigger>
           </div>
-          <img
-            className="w-full rounded-2xl"
-            src="https://images.unsplash.com/photo-1596450886763-6f9b7f3cbd0a?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-          />
-        </article>
+        </div>
       </div>
+
       <ArticlePopups img={img} title={title} content={content} />
     </Dialog>
   );
