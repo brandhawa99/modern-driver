@@ -1,13 +1,9 @@
-import { useState } from "react";
-import { Skeleton } from "../ui/skeleton";
 import { cn } from "@/lib/utils";
 
 export const ImageSection = ({ image }: { image: string }) => {
-  const [loaded, setLoaded] = useState(false);
 
   return (
     <section className="relative w-full h-[60vh] overflow-hidden mt-10">
-      {!loaded && <Skeleton className="absolute inset-0 w-full h-full" />}
       <img
         src={image}
         fetchPriority="high"
@@ -17,10 +13,8 @@ export const ImageSection = ({ image }: { image: string }) => {
         <img
           src={image}
           fetchPriority="high"
-          onLoad={() => setLoaded(true)}
           className={cn(
-            "w-full h-auto max-h-full object-contain transition-opacity duration-500",
-            loaded ? "opacity-100" : "opacity-0",
+            "w-full h-auto max-h-full object-contain transition-opacity duration-500 ",
           )}
         />
       </div>
