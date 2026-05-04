@@ -9,7 +9,7 @@ import { Toaster } from "./components/ui/sonner";
 import { TooltipProvider } from "./components/ui/tooltip";
 
 // Create a new router instance
-const router = createRouter({ routeTree, scrollRestoration: true });
+const router = createRouter({ routeTree, scrollRestoration: true, defaultViewTransition: true });
 
 // Register the router instance for type safety
 declare module "@tanstack/react-router" {

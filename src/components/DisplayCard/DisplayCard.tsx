@@ -9,7 +9,6 @@ import {
   MedalIcon,
   SpeedometerIcon,
 } from "@phosphor-icons/react";
-import { useGarageStore } from "@/store/garageStore";
 import type { Car } from "@/data/cars";
 import { CountdownTimer } from "./CountdownTimer";
 import HeartButton from "./HeartButton";
@@ -34,11 +33,9 @@ const DisplayCard = ({ car }: { car: Car }) => {
     currentBid,
   } = car;
 
-  const garageIds = useGarageStore((state) => state.garageIds);
   const topBid = useAuctionStore(
     (state) => state.bidsByCarId[id] ?? currentBid,
   );
-  const isInGarage = garageIds[car?.id];
 
   return (
     <Card className="p-0 overflow-hidden h-full flex flex-col justify-between">
@@ -96,7 +93,7 @@ const DisplayCard = ({ car }: { car: Car }) => {
           )}
           onClick={(e) => e.stopPropagation()}
         >
-          <HeartButton isInGarage={isInGarage} carId={id} />
+          <HeartButton car={car} />
         </div>
       </div>
       <ActionSection
