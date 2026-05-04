@@ -148,3 +148,19 @@
 @utility animate-fadein {
   animation: fadeIn 0.3s ease 2.2s forwards;
 }
+
+@keyframes fade-slide-in {
+  from { opacity: 0; translate: 0 6px; }
+}
+
+@keyframes fade-slide-out {
+  to { opacity: 0; translate: 0 -6px; }
+}
+
+::view-transition-old(root) {
+  animation: 180ms ease-in fade-slide-out;
+}
+
+::view-transition-new(root) {
+  animation: 220ms ease-out fade-slide-in;
+}
