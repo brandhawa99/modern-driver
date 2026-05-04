@@ -23,13 +23,15 @@ function FeaturedArticles() {
         <div className="flex flex-col mt-20 w-full max-w-5xl">
           <h1 className="text-4xl font-bold">Featured Articles</h1>
           <div className="grid grid-cols-2 grid-rows-2 gap-2 md:gap-6 w-full mt-10">
-            {
-              articles.map((article) => {
-                return (
-                  <ArticleSection data={article} openDialog={openDialog} key={article.title} />
-                )
-              })
-            }
+            {articles.map((article) => {
+              return (
+                <ArticleSection
+                  data={article}
+                  openDialog={openDialog}
+                  key={article.title}
+                />
+              );
+            })}
           </div>
         </div>
       </div>
@@ -38,26 +40,30 @@ function FeaturedArticles() {
         title={activeDialog?.title}
         content={activeDialog?.content}
       />
-    </Dialog >
+    </Dialog>
   );
 }
 
 export default FeaturedArticles;
 
-const ArticleSection = ({ data, openDialog }: { data: ArticleProps, openDialog: (data: ArticleProps) => void }) => {
-
+const ArticleSection = ({
+  data,
+  openDialog,
+}: {
+  data: ArticleProps;
+  openDialog: (data: ArticleProps) => void;
+}) => {
   return (
     <div
       className="cursor-pointer relative rounded-2xl overflow-hidden max-h-150"
       onClick={() => {
         openDialog(data);
-      }}>
-
+      }}
+    >
       <img className="w-full h-full object-cover" src={data.img} />
       <div className="flex items-center md:items-end p-6 md:py-20 absolute inset-0 text-black bg-linear-to-t from-black to-transparent">
         <h1 className="text-pretty font-bold text-2xl md:text-5xl text-white">
           {data.title}
-
         </h1>
         <Button
           variant={"secondary"}
@@ -71,5 +77,5 @@ const ArticleSection = ({ data, openDialog }: { data: ArticleProps, openDialog: 
         </Button>
       </div>
     </div>
-  )
-}
+  );
+};

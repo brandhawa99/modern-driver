@@ -6,7 +6,7 @@ import useGarageActions from "@/hooks/useGarageActions";
 import type { Car } from "@/data/cars";
 
 interface HeartButtonProps {
-  car: Car
+  car: Car;
 }
 
 export default function HeartButton({ car }: HeartButtonProps) {

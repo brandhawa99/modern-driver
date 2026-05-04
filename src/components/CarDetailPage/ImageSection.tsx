@@ -1,7 +1,6 @@
 import { cn } from "@/lib/utils";
 
 export const ImageSection = ({ image }: { image: string }) => {
-
   return (
     <section className="relative w-full h-[60vh] overflow-hidden mt-10">
       <img

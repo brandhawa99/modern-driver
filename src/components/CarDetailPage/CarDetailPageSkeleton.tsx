@@ -4,7 +4,6 @@ import { Skeleton } from "../ui/skeleton";
 export default function CarDetailPageSkeleton() {
   return (
     <article className="min-h-screen bg-background text-foreground mt-10">
-      {/* Hero image */}
       <Skeleton className="w-full h-[60vh] rounded-none" />
 
       <div className="max-w-3xl mx-auto px-6 md:px-0 pb-32">

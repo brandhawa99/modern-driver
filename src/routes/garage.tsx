@@ -5,7 +5,7 @@ import { useGarageStore } from "@/store/garageStore";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import Garage from "@/assets/Garage.gif";
 import DisplayCard from "@/components/DisplayCard/DisplayCard";
-import { AnimatePresence, motion } from "motion/react"
+import { AnimatePresence, motion } from "motion/react";
 
 export const Route = createFileRoute("/garage")({
   component: RouteComponent,
@@ -23,7 +23,9 @@ function RouteComponent() {
           <div className="bg-primary/70 p-10 rounded my-10 flex items-center justify-center">
             <img src={Garage} />
           </div>
-          <h1 className="font-bold text-center">Your Collection is currently empty.</h1>
+          <h1 className="font-bold text-center">
+            Your Collection is currently empty.
+          </h1>
           <p className="max-w-md dark:text-gray-400 text-center">
             Start exploring our curated collection to discover rare automotive
             masterpieces and begin your collection!
@@ -37,7 +39,6 @@ function RouteComponent() {
           <GarageValuation cars={garageCars} />
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
             <AnimatePresence>
-
               {garageCars.map((car, index) => (
                 <motion.div
                   key={car.id}

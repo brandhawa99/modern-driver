@@ -150,11 +150,17 @@
 }
 
 @keyframes fade-slide-in {
-  from { opacity: 0; translate: 0 6px; }
+  from {
+    opacity: 0;
+    translate: 0 6px;
+  }
 }
 
 @keyframes fade-slide-out {
-  to { opacity: 0; translate: 0 -6px; }
+  to {
+    opacity: 0;
+    translate: 0 -6px;
+  }
 }
 
 ::view-transition-old(root) {
