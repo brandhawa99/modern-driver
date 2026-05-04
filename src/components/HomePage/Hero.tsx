@@ -12,9 +12,10 @@ function Hero() {
       <div className="relative w-full h-[90vh] min-h-150 overflow-hidden rounded-2xl">
         <div className="max-w-5xl ">
           <img
-            src="https://images.unsplash.com/photo-1596450886763-6f9b7f3cbd0a?q=80&w=1920&auto=format&fit=crop"
+            src="https://images.unsplash.com/photo-1596450886763-6f9b7f3cbd0a?w=1400&q=75&auto=format&fit=crop&fm=webp"
             className="rounded-2xl absolute inset-0 w-full h-full object-cover"
             alt="Porsche 918 Spyder"
+            fetchPriority="high"
           />
 
           <div className="absolute inset-0 bg-linear-to-t from-black via-black/50 to-transparent" />
