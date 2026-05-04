@@ -9,8 +9,10 @@ import {
 } from "../ui/card";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
+import { useWebHaptics } from "web-haptics/react";
 
 function CTA() {
+  const { trigger } = useWebHaptics()
   return (
     <div className="mt-40 w-full justify-center flex">
       <div className="relative">
@@ -44,7 +46,16 @@ function CTA() {
               </form>
             </CardContent>
             <CardFooter className="flex-col gap-2">
-              <Button type="submit" className="w-full">
+              <Button type="submit" className="w-full"
+                onClick={() => {
+                  trigger([
+                    { duration: 40, intensity: 0.7 },
+                    { delay: 40, duration: 40, intensity: 0.7 },
+                    { delay: 40, duration: 40, intensity: 0.9 },
+                    { delay: 40, duration: 50, intensity: 0.6 },
+                  ])
+                }}
+              >
                 Sign Up
               </Button>
             </CardFooter>

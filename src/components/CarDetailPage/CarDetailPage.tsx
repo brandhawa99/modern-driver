@@ -11,6 +11,7 @@ import { getCarSpecs, getCarTags } from "@/lib/carDetails";
 import { formatPrice } from "@/lib/utils";
 import { Separator } from "../ui/separator";
 import { countryCodeMap } from "@/lib/countryCodeToName";
+import { useWebHaptics } from "web-haptics/react";
 interface CarDetailPageProps {
   car: Car;
 }
@@ -21,6 +22,7 @@ export function CarDetailPage({ car }: CarDetailPageProps) {
   const { isAuction } = car;
 
   const { isInGarage, remove, add } = useGarageActions();
+  const { trigger } = useWebHaptics();
 
   return (
     <article className="min-h-screen bg-background text-foreground">
@@ -55,6 +57,7 @@ export function CarDetailPage({ car }: CarDetailPageProps) {
               <span>
                 <img
                   src={`https://flagsapi.com/${car.countryCode}/flat/24.png`}
+                  onError={(e) => { e.currentTarget.style.display = "none" }}
                 />
               </span>
             </span>
@@ -97,7 +100,17 @@ export function CarDetailPage({ car }: CarDetailPageProps) {
 
           <div className="flex flex-col gap-3 md:items-end">
             {!isAuction && (
-              <Button className="w-full flex-1 py-3 px-8 uppercase text-sm cursor-pointer font-sans">
+              <Button className="w-full flex-1 py-3 px-8 uppercase text-sm cursor-pointer font-sans"
+                onClick={() => {
+                  trigger([
+                    { duration: 40, intensity: 0.7 },
+                    { delay: 40, duration: 40, intensity: 0.7 },
+                    { delay: 40, duration: 40, intensity: 0.9 },
+                    { delay: 40, duration: 50, intensity: 0.6 },
+                  ])
+                }
+                }
+              >
                 Enquire
               </Button>
             )}

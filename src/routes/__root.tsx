@@ -9,7 +9,7 @@ const RootLayout = () => {
     <div className="antialiasing bg-[--background] text-[--text] min-h-screen flex flex-col">
       <Header />
       <Outlet />
-      <TanStackRouterDevtools />
+      {/* <TanStackRouterDevtools /> */}
       <Footer />
     </div>
   );
