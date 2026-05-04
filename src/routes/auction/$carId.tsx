@@ -1,7 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useCar } from "@/hooks/useCars";
 import { CarDetailPage } from "@/components/CarDetailPage/CarDetailPage";
-import { useMemo } from "react";
 import CarDetailPageSkeleton from "@/components/CarDetailPage/CarDetailPageSkeleton";
 import CarDetailPageError from "@/components/CarDetailPage/CarDetailPageError";
 
@@ -11,7 +10,6 @@ export const Route = createFileRoute("/auction/$carId")({
 function RouteComponent() {
   const { carId } = Route.useParams();
   const { data, isPending, isError } = useCar(carId);
-  const car = useMemo(() => data, [data?.id]);
   if (isError) {
     return <CarDetailPageError />;
   }
@@ -19,5 +17,5 @@ function RouteComponent() {
     return <CarDetailPageSkeleton />;
   }
 
-  return <CarDetailPage car={car!} />;
+  return <CarDetailPage car={data} />;
 }
