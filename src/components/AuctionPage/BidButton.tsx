@@ -30,14 +30,11 @@ const BidButton = ({
   const buttonRef = useRef<HTMLButtonElement>(null);
   const [disable, setDisable] = useState(false);
   const [buttonTxt, setButtonTxt] = useState("");
-  const { trigger } = useWebHaptics()
+  const { trigger } = useWebHaptics();
 
   const handleBid = () => {
     placeBid(carId);
-    trigger([
-      { duration: 30 },
-      { delay: 60, duration: 40, intensity: 1 },
-    ]);
+    trigger([{ duration: 30 }, { delay: 60, duration: 40, intensity: 1 }]);
 
     setDisable(true);
     setButtonTxt("Placing Bid...");

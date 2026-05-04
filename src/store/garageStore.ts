@@ -13,10 +13,11 @@ export const useGarageStore = create<CarStore>()(
       addCar: (id: string) =>
         set((state) => ({ garageIds: { ...state.garageIds, [id]: true } })),
       removeCar: (id: string) =>
-        set((state) => {
-          const { [id]: _, ...rest } = state.garageIds;
-          return { garageIds: rest };
-        }),
+        set((state) => ({
+          garageIds: Object.fromEntries(
+            Object.entries(state.garageIds).filter(([key]) => key !== id),
+          ),
+        })),
     }),
     {
       name: "garage-storage",

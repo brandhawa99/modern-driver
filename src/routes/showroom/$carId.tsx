@@ -12,10 +12,11 @@ export const Route = createFileRoute("/showroom/$carId")({
 function RouteComponent() {
   const { carId } = Route.useParams();
   const { data, isPending, isError } = useCar(carId);
-  const car = useMemo(() => data, [data?.id]);
+  const car = data
+  // useMemo(() => data, [data?.id]);
 
   if (isError) {
-    return <CarDetailPageError />
+    return <CarDetailPageError />;
   }
   if (isPending) {
     return <CarDetailPageSkeleton />;

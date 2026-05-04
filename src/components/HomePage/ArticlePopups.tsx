@@ -17,11 +17,7 @@ function ArticlePopups({ img, title, content }: ArticleProps) {
       <div className="max overflow-y-auto">
         {/* Hero image with gradient overlay */}
         <div className="relative h-72 md:h-96 w-full">
-          <img
-            className="w-full h-full object-cover"
-            src={img}
-            alt={title}
-          />
+          <img className="w-full h-full object-cover" src={img} alt={title} />
           <div className="absolute inset-0 bg-linear-to-t from-black via-black/60 to-transparent" />
 
           {/* Title pinned over image */}
@@ -39,7 +35,10 @@ function ArticlePopups({ img, title, content }: ArticleProps) {
         <div className="bg-background p-6 md:p-8 flex flex-col gap-6">
           <div className="flex flex-col gap-4">
             {content?.split("\n\n").map((para, i) => (
-              <p key={i} className="text-base leading-relaxed text-foreground/80">
+              <p
+                key={i}
+                className="text-base leading-relaxed text-foreground/80"
+              >
                 {para}
               </p>
             ))}

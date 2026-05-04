@@ -88,9 +88,7 @@ const DisplayCard = ({ car }: { car: Car }) => {
           </p>
         </div>
         <div
-          className={cn(
-            "absolute top-2 right-2 flex",
-          )}
+          className={cn("absolute top-2 right-2 flex")}
           onClick={(e) => e.stopPropagation()}
         >
           <HeartButton car={car} />
