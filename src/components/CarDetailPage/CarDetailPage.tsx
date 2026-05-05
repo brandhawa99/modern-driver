@@ -12,6 +12,7 @@ import { formatPrice } from "@/lib/utils";
 import { Separator } from "../ui/separator";
 import { countryCodeMap } from "@/lib/countryCodeToName";
 import { useWebHaptics } from "web-haptics/react";
+import { getFlagUrl } from "@/lib/getFlagUrl";
 interface CarDetailPageProps {
   car: Car;
 }
@@ -56,7 +57,7 @@ export function CarDetailPage({ car }: CarDetailPageProps) {
               <span className="text-2xl">·</span>
               <span>
                 <img
-                  src={`https://flagsapi.com/${car.countryCode}/flat/24.png`}
+                  src={getFlagUrl(car.countryCode)}
                   onError={(e) => {
                     e.currentTarget.style.display = "none";
                   }}

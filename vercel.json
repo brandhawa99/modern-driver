@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/flags/:code",
+      "destination": "https://flagsapi.com/:code/flat/24.png"
+    }
+  ]
+}

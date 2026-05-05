@@ -15,6 +15,7 @@ import HeartButton from "./HeartButton";
 import { Button } from "../ui/button";
 import { useAuctionStore } from "@/store/auctionStore";
 import { countryCodeMap } from "@/lib/countryCodeToName";
+import { getFlagUrl } from "@/lib/getFlagUrl";
 
 const DisplayCard = ({ car }: { car: Car }) => {
   const {
@@ -166,7 +167,7 @@ const CountrySection = ({ location, countryCode }: CountrySectionProps) => {
   return (
     <div className="text-sm flex items-center gap-2 leading-tight">
       <img
-        src={`https://flagsapi.com/${countryCode}/flat/24.png`}
+        src={getFlagUrl(countryCode)}
         className="w-4 h-4 object-cover"
       />
       <span className="text-muted-foreground">
