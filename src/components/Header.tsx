@@ -30,7 +30,11 @@ export default function Header() {
                 className="px-2 py-2 md:px-4 md:py-3 hover:border-black transition-border transition-duration-800"
                 aria-label={link.name}
               >
-                <Link to={link.to} className="flex items-center md:gap-2" aria-label={link.name}>
+                <Link
+                  to={link.to}
+                  className="flex items-center md:gap-2"
+                  aria-label={link.name}
+                >
                   {({ isActive }) => (
                     <>
                       <Icon

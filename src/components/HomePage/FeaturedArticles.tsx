@@ -4,6 +4,7 @@ import type { ArticleProps } from "./ArticlePopups";
 import { useState } from "react";
 import { Dialog } from "../ui/dialog";
 import ArticlePopups from "./ArticlePopups";
+import { motion } from "motion/react";
 
 function FeaturedArticles() {
   const [open, setOpen] = useState(false);
@@ -19,17 +20,33 @@ function FeaturedArticles() {
   };
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <div className="flex w-full justify-center">
+      <div className="flex w-full justify-center mt-20 mb-20">
         <div className="flex flex-col mt-20 w-full max-w-5xl">
-          <h1 className="text-4xl font-bold">Featured Articles</h1>
-          <div className="grid grid-cols-2 grid-rows-2 gap-2 md:gap-6 w-full mt-10">
-            {articles.map((article) => {
+          <motion.h1
+            className="text-4xl font-bold mb-10"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+          >
+            Featured Articles
+          </motion.h1>
+          <div className="grid grid-cols-2 grid-rows-2 gap-2 md:gap-6 w-full">
+            {articles.map((article, index) => {
               return (
-                <ArticleSection
-                  data={article}
-                  openDialog={openDialog}
+                <motion.div
+                  className="w-full h-full"
                   key={article.title}
-                />
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{
+                    duration: 0.5,
+                    delay: index * 0.1,
+                  }}
+                >
+                  <ArticleSection data={article} openDialog={openDialog} />
+                </motion.div>
               );
             })}
           </div>
@@ -55,7 +72,7 @@ const ArticleSection = ({
 }) => {
   return (
     <div
-      className="cursor-pointer relative rounded-2xl overflow-hidden max-h-150"
+      className="cursor-pointer relative rounded-2xl overflow-hidden max-h-150 h-full"
       onClick={() => {
         openDialog(data);
       }}
