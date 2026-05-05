@@ -47,7 +47,7 @@ const DisplayCard = ({ car }: { car: Car }) => {
         >
           <div className="relative group ">
             <img
-              src={image}
+              src={`${image}?w=300&auto=format&q=75`}
               alt={model}
               fetchPriority="high"
               className="w-full aspect-4/3 object-cover transition-transform duration-300 hover:scale-[1.02]"
@@ -156,9 +156,9 @@ type CarHeaderProps = Pick<Car, "year" | "make" | "model">;
 
 const CarHeader = ({ year, make, model }: CarHeaderProps) => {
   return (
-    <h3 className="text-lg font-semibold leading-tight cursor-text select-text">
+    <div className="text-lg font-semibold leading-tight cursor-text select-text">
       {year} {make} {model}
-    </h3>
+    </div>
   );
 };
 
@@ -169,6 +169,7 @@ const CountrySection = ({ location, countryCode }: CountrySectionProps) => {
       <img
         src={`https://flagsapi.com/${countryCode}/flat/24.png`}
         className="w-4 h-4 object-cover"
+        alt={countryCode}
       />
       <span></span>
       <span className="text-muted-foreground">
