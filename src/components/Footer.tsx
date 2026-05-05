@@ -22,8 +22,8 @@ export default function Footer() {
           <div className="flex gap-6 flex-col px-8">
             <div className="contents">
               <FooterLink to={"/"}>/Home/</FooterLink>
-              <FooterLink to={"/auction"}>/Auction/</FooterLink>
               <FooterLink to={"/showroom"}>/Showroom/</FooterLink>
+              <FooterLink to={"/auction"}>/Auction/</FooterLink>
               <FooterLink to={"/garage"}>/Garage/</FooterLink>
               <FooterLink to={"mailto:baltej.randhawa0@gmail.com"}>
                 /Contact/
