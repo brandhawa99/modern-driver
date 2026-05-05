@@ -11,11 +11,11 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
-  const applyTheme = useThemeStore((s) => s.applyTheme)
+  const applyTheme = useThemeStore((s) => s.applyTheme);
 
   useEffect(() => {
     applyTheme();
-  }, [])
+  }, []);
 
   return (
     <div className="min-h-[calc(100vh-80px)] mx-2 md:mx-8">
