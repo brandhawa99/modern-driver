@@ -16,7 +16,11 @@ function ArticlePopups({ img, title, content }: ArticleProps) {
 
       <div className="max overflow-y-auto">
         <div className="relative h-72 md:h-96 w-full">
-          <img className="w-full h-full object-cover" src={`${img}?w=600&q=50&auto=format&fit=crop&fm=webp`} alt={title} />
+          <img className="w-full h-full object-cover"
+            src={`${img}?w=600&q=50&auto=format&fit=crop&fm=webp`}
+            alt={title}
+            crossOrigin="anonymous"
+          />
           <div className="absolute inset-0 bg-linear-to-t from-black via-black/60 to-transparent" />
 
           <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8">

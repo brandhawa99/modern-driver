@@ -15,7 +15,6 @@ import HeartButton from "./HeartButton";
 import { Button } from "../ui/button";
 import { useAuctionStore } from "@/store/auctionStore";
 import { countryCodeMap } from "@/lib/countryCodeToName";
-import { getFlagUrl } from "@/lib/getFlagUrl";
 
 const DisplayCard = ({ car }: { car: Car }) => {
   const {
@@ -52,6 +51,7 @@ const DisplayCard = ({ car }: { car: Car }) => {
               alt={model}
               fetchPriority="high"
               className="w-full aspect-4/3 object-cover transition-transform duration-300 hover:scale-[1.02]"
+              crossOrigin="anonymous"
             />
             {isAuction && (
               <div className="absolute right-1 bottom-1 bg-background p-1 px-2 w-38 rounded-2xl text-default z-10 flex justify-center items-center gap-1">
@@ -167,9 +167,10 @@ const CountrySection = ({ location, countryCode }: CountrySectionProps) => {
   return (
     <div className="text-sm flex items-center gap-2 leading-tight">
       <img
-        src={getFlagUrl(countryCode)}
+        src={`https://flagsapi.com/${countryCode}/flat/24.png`}
         className="w-4 h-4 object-cover"
       />
+      <span></span>
       <span className="text-muted-foreground">
         {location}, {countryCodeMap[countryCode]}
       </span>

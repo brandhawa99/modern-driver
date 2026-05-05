@@ -15,6 +15,7 @@ function Hero() {
             src="https://images.unsplash.com/photo-1596450886763-6f9b7f3cbd0a?w=1400&q=75&auto=format&fit=crop&fm=webp"
             className="rounded-2xl absolute inset-0 w-full h-full object-cover"
             alt="Porsche 918 Spyder"
+            crossOrigin="anonymous"
             fetchPriority="high"
           />
 

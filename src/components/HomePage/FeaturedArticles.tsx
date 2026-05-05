@@ -60,7 +60,12 @@ const ArticleSection = ({
         openDialog(data);
       }}
     >
-      <img className="w-full h-full object-cover" src={`${data.img}?w=600&q=55&auto=format&fit=crop&fm=webp`} alt={data.title} />
+      <img
+        className="w-full h-full object-cover"
+        src={`${data.img}?w=600&q=55&auto=format&fit=crop&fm=webp`}
+        alt={data.title}
+        crossOrigin="anonymous"
+      />
       <div className="flex items-center md:items-end p-6 md:py-20 absolute inset-0 text-black bg-linear-to-t from-black to-transparent">
         <h1 className="text-pretty font-bold text-2xl md:text-5xl text-white">
           {data.title}
