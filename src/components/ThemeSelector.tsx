@@ -13,6 +13,7 @@ export default function ThemeSelector() {
       variant="ghost"
       className="rounded-full w-12 h-12"
       onClick={() => setTheme(theme == "light" ? "dark" : "light")}
+      aria-label="theme toggle"
     >
       {theme === "light" ? (
         <MoonIcon className={themeIconStyle} style={themeButtonSize} />

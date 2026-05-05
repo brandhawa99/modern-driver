@@ -18,11 +18,11 @@ function Index() {
   }, []);
 
   return (
-    <div className="min-h-[calc(100vh-80px)] mx-2 md:mx-8">
+    <main className="min-h-[calc(100vh-80px)] mx-2 md:mx-8">
       <Hero />
       <FeaturedArticles />
       <CarsSection />
       <CTA />
-    </div>
+    </main>
   );
 }

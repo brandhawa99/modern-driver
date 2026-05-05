@@ -25,6 +25,7 @@ function CTA() {
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7, ease: "easeOut" }}
+          alt="CTA Background"
         />
         <motion.div
           className="absolute inset-0 flex items-center justify-center"

@@ -24,6 +24,7 @@ export default function HeartButton({ car }: HeartButtonProps) {
               : "bg-black/20 hover:bg-black/30",
           )}
           onClick={isInGarage(car.id) ? () => remove(car) : () => add(car)}
+          aria-label="Like Button"
         >
           <HeartIcon
             className={cn(
