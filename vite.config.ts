@@ -43,10 +43,11 @@ export default defineConfig({
       registerType: "autoUpdate",
       injectRegister: "auto",
       workbox: {
+        globPatterns: ["**/*.{js,css,html,ico,png,svg,woff2}"],
         runtimeCaching: [
           {
             urlPattern: ({ url }) => url.hostname === "flagsapi.com",
-            handler: "CacheFirst",
+            handler: "NetworkFirst",
             options: {
               cacheName: "country-flags",
               expiration: {
@@ -56,12 +57,17 @@ export default defineConfig({
             },
           },
           {
-            urlPattern: ({ url }) => url.hostname === "images.unsplash.com",
-            handler: "CacheFirst",
+            urlPattern: ({ url }) =>
+              url.hostname === "images.unsplash.com" ||
+              url.hostname === "plus.unsplash.com",
+            handler: "NetworkFirst",
             options: {
               cacheName: "unsplash-images",
+              fetchOptions: {
+                mode: "cors",
+              },
               expiration: {
-                maxEntries: 50,
+                maxEntries: 60,
                 maxAgeSeconds: 60 * 60 * 24 * 30,
               },
             },

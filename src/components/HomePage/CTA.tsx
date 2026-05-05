@@ -19,6 +19,7 @@ function CTA() {
         <img
           className="rounded-2xl h-120 md:h-fit object-cover"
           src="https://images.unsplash.com/photo-1607585011081-241d2bacb7de?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+          crossOrigin="anonymous"
         />
         <div className="absolute inset-0 flex items-center justify-center">
           <Card className="w-full max-w-sm mx-4 bg-card/95">
