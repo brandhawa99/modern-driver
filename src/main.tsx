@@ -14,7 +14,7 @@ const router = createRouter({
   routeTree,
   scrollRestoration: true,
   defaultViewTransition: true,
-  defaultNotFoundComponent: CarDetailPageError
+  defaultNotFoundComponent: CarDetailPageError,
 });
 
 // Register the router instance for type safety

@@ -2,7 +2,11 @@ import { fetchCarById, fetchCars } from "@/services/carsService";
 import { useQuery } from "@tanstack/react-query";
 
 export const useCars = () => {
-  return useQuery({ queryKey: ["cars"], queryFn: fetchCars });
+  return useQuery({
+    queryKey: ["cars"],
+    queryFn: fetchCars,
+    networkMode: "offlineFirst",
+  });
 };
 
 export const useCar = (id: string) => {
@@ -10,5 +14,6 @@ export const useCar = (id: string) => {
     queryKey: ["car", id],
     queryFn: () => fetchCarById(id),
     retry: 1,
+    networkMode: "offlineFirst",
   });
 };
