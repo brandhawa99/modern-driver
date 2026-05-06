@@ -6,8 +6,11 @@ export function CountdownTimer({ endTime }: { endTime: string }) {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setTimeLeft(getTimeLeft(endTime));
+      const time = getTimeLeft(endTime)
+      setTimeLeft(time);
+      if(time.isExpired) clearInterval(interval);
     }, 1000);
+
     return () => clearInterval(interval);
   }, [endTime]);
 
