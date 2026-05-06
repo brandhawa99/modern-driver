@@ -47,7 +47,7 @@ const DisplayCard = ({ car }: { car: Car }) => {
         >
           <div className="relative group ">
             <img
-              src={`${image}?w=300&auto=format&q=75`}
+              src={`${image}?w=400&auto=format&q=75`}
               alt={model}
               fetchPriority="high"
               className="w-full aspect-4/3 object-cover transition-transform duration-300 hover:scale-[1.02]"

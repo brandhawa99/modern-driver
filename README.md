@@ -1,8 +1,8 @@
 # Modern Driver
 
-A Progressive Web App built as a targeted portfolio project for a Frontend Developer role at [Classic Driver](https://www.classicdriver.com). Inspired by classicdriver.com — a curated marketplace for collector and classic cars.
+A curated classic car marketplace PWA — built with React, TypeScript, and Vite.
 
-**Live demo:** https://modern-driver.vercel.app
+**Live:** https://modern-driver.vercel.app
 
 ![TypeScript](https://img.shields.io/badge/TypeScript-93%25-3178C6?style=flat&logo=typescript&logoColor=white)
 ![Vite](https://img.shields.io/badge/Vite-PWA-646CFF?style=flat&logo=vite&logoColor=white)
@@ -10,18 +10,23 @@ A Progressive Web App built as a targeted portfolio project for a Frontend Devel
 
 ---
 
-## Features
+## What it is
 
-- **Installable PWA** — Service Worker, Web App Manifest, offline support, and Workbox image caching with `NetworkFirst` strategy
-- **Real-time auction engine** — live bid feed with simulated bidders, reserve price logic, per-car bid history that persists across navigation, and confetti on bid placement
-- **Virtual Garage** — save and remove cars, persisted across sessions with Zustand
-- **Showroom** — browse and filter the full car catalogue
-- **Featured articles** — editorial content with modal popup reader
-- **Luxury dark aesthetic** — gold accents, Cormorant Garamond serif typography, smooth page transitions
+A full-featured collector car platform with a real-time auction engine, virtual garage, and editorial content — styled as a luxury dark-mode PWA with gold accents and Cormorant Garamond typography. Installable, offline-capable, and built to production architectural standards throughout.
 
 ---
 
-## Tech Stack
+## Features
+
+- **Real-time auction engine** — live bid feed with simulated competing bidders, reserve price logic, and per-car bid history that survives navigation
+- **Virtual Garage** — persistent save/remove with Zustand, O(1) lookup via `Record<string, boolean>`
+- **Showroom** — full catalogue with filtering
+- **Editorial** — featured articles with modal reader
+- **PWA** — installable, Service Worker, offline page, Workbox image caching
+
+---
+
+## Stack
 
 | Category         | Tech                            |
 | ---------------- | ------------------------------- |
@@ -29,29 +34,39 @@ A Progressive Web App built as a targeted portfolio project for a Frontend Devel
 | Routing          | TanStack Router                 |
 | Data fetching    | TanStack Query                  |
 | State management | Zustand                         |
-| Styling          | Tailwind CSS + shadcn/ui        |
+| Styling          | Tailwind CSS v4 + shadcn/ui     |
 | Animation        | Motion (formerly Framer Motion) |
 | PWA              | vite-plugin-pwa + Workbox       |
 | Deployment       | Vercel                          |
 
 ---
 
-## Architecture decisions
+## Architecture
 
-**Auction state keyed per car**
-`bidsByCarId` and `reserveMetByCarId` are `Record<string, ...>` maps in Zustand rather than flat values. This means bid history and reserve status persist independently per car — navigating away and back never resets the auction.
+### Auction state keyed per car
 
-**Stale closure prevention in the bid loop**
-The fake bid loop uses recursive `setTimeout` with `useAuctionStore.getState()` inside the callback instead of closed-over React state. This ensures every bid is calculated off the latest current price, not the value captured at effect time.
+Bid history and reserve status live in `Record<string, ...>` maps — `bidsByCarId`, `reserveMetByCarId` — rather than flat values. Navigation never resets an in-progress auction.
 
-**PWA image caching**
-Unsplash images use `crossOrigin="anonymous"` so the service worker can store non-opaque responses. Without this, the browser blocks the service worker from caching cross-origin images entirely.
-
-**TanStack Query over direct imports**
-Mock data is wrapped in fake async functions with a simulated delay. The data layer mirrors a real API so loading states, error boundaries, and caching all work exactly as they would in production.
+The bid loop runs on recursive `setTimeout` and reads price with `useAuctionStore.getState()` inside the callback rather than closing over React state. This means every simulated bid is calculated off the true current price, not a stale snapshot from when the effect was registered. The obvious implementation with `useEffect` + closed-over state gets this wrong.
 
 **Zustand selector stability**
-Fallback arrays in Zustand selectors use stable constants defined outside components (`const EMPTY_BIDS: Bid[] = []`) rather than inline `?? []`. Inline array literals create new references on every render and cause infinite re-render loops with Zustand's snapshot diffing.
+
+Selectors that return arrays use stable empty constants defined outside components:
+
+```ts
+const EMPTY_BIDS: Bid[] = [];
+// selector: state => state.bidsByCarId[carId] ?? EMPTY_BIDS
+```
+
+Inline `?? []` creates a new array reference on every render. Zustand's snapshot diffing sees it as changed, schedules a re-render, and you get an infinite loop. This is a non-obvious failure mode that only surfaces under specific selector patterns.
+
+**PWA cross-origin image caching**
+
+Unsplash images are served with `crossOrigin="anonymous"`. Without it, the browser treats them as opaque responses — the Service Worker can store them but cannot inspect status codes, so Workbox's cache strategies refuse to cache them. `crossOrigin="anonymous"` makes the response transparent and cacheable.
+
+**TanStack Query over direct imports**
+
+Mock data is wrapped in async functions with simulated latency. The data layer is structurally identical to a real REST API — loading states, error boundaries, stale-while-revalidate, and cache invalidation all behave exactly as they would in production.
 
 ---
 
@@ -62,11 +77,8 @@ bun install
 bun run dev
 ```
 
-To test PWA features (Service Worker, offline mode):
+PWA features (Service Worker, offline mode, image caching) require a production build:
 
 ```bash
-bun run build
-bun run preview
+bun run build && bun run preview
 ```
-
-PWA features only work in the production build — the service worker is not registered in dev mode.

@@ -4,7 +4,7 @@ export const ImageSection = ({ image }: { image: string }) => {
   return (
     <section className="relative w-full h-[60vh] overflow-hidden mt-10">
       <img
-        src={`${image}??w=300&auto=format&q=75`}
+        src={`${image}?w=200&auto=format&q=75`}
         fetchPriority="high"
         className="absolute inset-0 w-full h-full object-cover blur-2xl scale-110 opacity-60"
         crossOrigin="anonymous"
