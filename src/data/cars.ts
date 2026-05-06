@@ -286,7 +286,7 @@ export const carsData: Car[] = [
     countryCode: "IT",
     condition: "used",
     transmission: "automatic",
-    endTime: new Date(Date.now() + 1000 * 60 * 60 * 22).toISOString(),
+    endTime: new Date(Date.now() + 1000 * 60 * 10).toISOString(),
     currentBid: 45_000,
     reservePrice: 50_000,
     engine: {
