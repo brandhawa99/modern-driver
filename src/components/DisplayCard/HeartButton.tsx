@@ -12,23 +12,17 @@ interface HeartButtonProps {
 
 export default function HeartButton({ car }: HeartButtonProps) {
   const { isInGarage, remove, add } = useGarageActions();
-  const {trigger} = useWebHaptics()
+  const { trigger } = useWebHaptics();
 
-  const ToggleHeart = (car:Car) => {
-
-    if(isInGarage(car.id)){
-      remove(car)
-      trigger([
-        {duration:10},
-      ],{intensity:1})
-    }else{
-      add(car)
-      trigger([
-        {duration:8},
-       ], {intensity:0.3})
+  const ToggleHeart = (car: Car) => {
+    if (isInGarage(car.id)) {
+      remove(car);
+      trigger([{ duration: 10 }], { intensity: 1 });
+    } else {
+      add(car);
+      trigger([{ duration: 8 }], { intensity: 0.3 });
     }
-
-  }
+  };
   return (
     <Tooltip>
       <TooltipTrigger asChild>
