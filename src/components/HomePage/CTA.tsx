@@ -119,12 +119,16 @@ function CTA() {
               Stay in the know
             </h2>
             <p className="text-white/60 text-sm leading-relaxed">
-              The latest cars, performance trends, and standout builds from around the world.
+              The latest cars, performance trends, and standout builds from
+              around the world.
             </p>
           </div>
 
           <div className="flex flex-col gap-3 w-full md:max-w-xs">
-            <Label htmlFor="email" className="text-white/60 text-xs tracking-widest uppercase">
+            <Label
+              htmlFor="email"
+              className="text-white/60 text-xs tracking-widest uppercase"
+            >
               Email
             </Label>
             <Input

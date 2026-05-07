@@ -12,7 +12,6 @@ import {
 import type { Car } from "@/data/cars";
 import { CountdownTimer } from "./CountdownTimer";
 import HeartButton from "./HeartButton";
-import { Button } from "../ui/button";
 import { useAuctionStore } from "@/store/auctionStore";
 import { countryCodeMap } from "@/lib/countryCodeToName";
 
@@ -132,7 +131,9 @@ const ActionSection = ({
 
         {isAuction && (
           <div className="border border-foreground/30 rounded-full px-2 py-0.5">
-            <p className="text-foreground/60 text-xs tracking-widest text-center">Has Reserve</p>
+            <p className="text-foreground/60 text-xs tracking-widest text-center">
+              Has Reserve
+            </p>
           </div>
         )}
       </div>

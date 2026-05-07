@@ -16,7 +16,7 @@ export default function Header() {
       <nav className="flex items-center justify-between py-4 px-2 md:px-8">
         <Link to="/">
           <h1 className="font-thin uppercase font-cormorant text-[18px] md:text-2xl">
-              Modern Driver
+            Modern Driver
           </h1>
         </Link>
         <div className="flex  items-center gap-1 justify-center md:gap-2">

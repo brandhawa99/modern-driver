@@ -8,7 +8,7 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --font-cormorant: 'Cormorant Garamond', serif;
+  --font-cormorant: "Cormorant Garamond", serif;
   --font-heading: "Inter Variable", sans-serif;
   --font-sans: "Public Sans Variable", sans-serif;
   --color-sidebar-ring: var(--sidebar-ring);

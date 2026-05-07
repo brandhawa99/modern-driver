@@ -10,9 +10,6 @@ export default function Footer() {
       behavior: "smooth",
     });
   };
-  const getYear = () => {
-    return new Date().getFullYear();
-  };
 
   return (
     <footer className="max-w-8xl border-t pyt-10 mt-10">
@@ -37,7 +34,6 @@ export default function Footer() {
           <h1 className="mt-40 w-full text-[11vw] whitespace-nowrap leading-none font-thin font-cormorant">
             MODERN DRIVER
           </h1>
-          {/* <p>© {getYear()} All rights reserved.</p> */}
         </div>
       </div>
       <div className="w-full py-3 bg-accent px-2 md:px-8 flex items-center justify-between text-center">

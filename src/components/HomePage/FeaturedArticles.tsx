@@ -10,7 +10,11 @@ function FeaturedArticles() {
   const [activeDialog, setActiveDialog] = useState<ArticleProps | null>(null);
 
   const openDialog = (data: ArticleProps) => {
-    setActiveDialog({ img: data.img, title: data.title, content: data.content });
+    setActiveDialog({
+      img: data.img,
+      title: data.title,
+      content: data.content,
+    });
     setOpen(true);
   };
 
