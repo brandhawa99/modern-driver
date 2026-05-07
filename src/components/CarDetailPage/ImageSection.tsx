@@ -13,9 +13,7 @@ export const ImageSection = ({ image }: { image: string }) => {
         className="absolute inset-0 w-full h-full object-cover blur-2xl scale-110 opacity-60"
         crossOrigin="anonymous"
         onError={() => {
-          console.log("image failed");
           setFailed(true);
-          console.log(failed);
         }}
       />
       <div className="relative z-10 mx-auto max-w-5xl h-full flex items-center">
@@ -27,9 +25,7 @@ export const ImageSection = ({ image }: { image: string }) => {
           )}
           crossOrigin="anonymous"
           onError={() => {
-            console.log("image failed");
             setFailed(true);
-            console.log(failed);
           }}
         />
       </div>
