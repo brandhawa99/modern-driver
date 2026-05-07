@@ -56,11 +56,11 @@ export function CarGrid({ cars, title }: CarGridProps) {
 
   const makes = useMemo(
     () => ["All", ...Array.from(new Set(cars.map((c) => c.make))).sort()],
-    [cars]
+    [cars],
   );
   const categories = useMemo(
     () => ["All", ...Array.from(new Set(cars.map((c) => c.category))).sort()],
-    [cars]
+    [cars],
   );
 
   const filtered = useMemo(() => {
@@ -75,7 +75,10 @@ export function CarGrid({ cars, title }: CarGridProps) {
   }, [cars, make, category, condition, priceRange]);
 
   const isFiltered =
-    make !== "All" || category !== "All" || condition !== "All" || priceRange !== 0;
+    make !== "All" ||
+    category !== "All" ||
+    condition !== "All" ||
+    priceRange !== 0;
 
   return (
     <div className="flex flex-col items-center">
@@ -83,13 +86,21 @@ export function CarGrid({ cars, title }: CarGridProps) {
         <div className="flex flex-wrap items-end gap-4 py-8">
           <FilterSelect label="Make" value={make} onChange={setMake}>
             {makes.map((m) => (
-              <option key={m} value={m}>{m}</option>
+              <option key={m} value={m}>
+                {m}
+              </option>
             ))}
           </FilterSelect>
 
-          <FilterSelect label="Category" value={category} onChange={setCategory}>
+          <FilterSelect
+            label="Category"
+            value={category}
+            onChange={setCategory}
+          >
             {categories.map((c) => (
-              <option key={c} value={c}>{c}</option>
+              <option key={c} value={c}>
+                {c}
+              </option>
             ))}
           </FilterSelect>
 
@@ -103,8 +114,8 @@ export function CarGrid({ cars, title }: CarGridProps) {
                 {c === "All"
                   ? "All"
                   : c === "like-new"
-                  ? "Like New"
-                  : c.charAt(0).toUpperCase() + c.slice(1)}
+                    ? "Like New"
+                    : c.charAt(0).toUpperCase() + c.slice(1)}
               </option>
             ))}
           </FilterSelect>
@@ -115,7 +126,9 @@ export function CarGrid({ cars, title }: CarGridProps) {
             onChange={(v) => setPriceRange(Number(v))}
           >
             {priceRanges.map((r, i) => (
-              <option key={i} value={i}>{r.label}</option>
+              <option key={i} value={i}>
+                {r.label}
+              </option>
             ))}
           </FilterSelect>
 
@@ -137,7 +150,7 @@ export function CarGrid({ cars, title }: CarGridProps) {
         <h2 className="text-2xl pb-12">{title(filtered.length)}</h2>
 
         {filtered.length === 0 ? (
-          <p className="text-muted-foreground py-20 text-center">
+          <p className="text-muted-foreground py-20 text-center min-h-[calc(100vh-400px)]">
             No cars match your filters.
           </p>
         ) : (

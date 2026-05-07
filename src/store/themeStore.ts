@@ -1,4 +1,3 @@
-// src/stores/theme-store.ts
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 
@@ -33,7 +32,6 @@ export const useThemeStore = create<ThemeState>()(
         const resolved =
           theme === "system" ? (systemDark ? "dark" : "light") : theme;
 
-        // minimal DOM mutation
         root.classList.toggle("dark", resolved === "dark");
 
         set({ resolvedTheme: resolved });

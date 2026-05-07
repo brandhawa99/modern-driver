@@ -46,7 +46,6 @@ const BidButton = ({
     const rect = buttonRef.current?.getBoundingClientRect();
     if (!rect) return;
 
-    // convert button position to 0-1 viewport percentages
     const x = (rect.left + rect.width / 2) / window.innerWidth;
     const y = (rect.top + rect.height / 2) / window.innerHeight;
 
