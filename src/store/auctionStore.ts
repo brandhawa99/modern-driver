@@ -22,7 +22,6 @@ export const useAuctionStore = create<AuctionStore>((set, get) => ({
 
   initAuction: (carId, startingBid) =>
     set((state) => {
-      // already initialized for this car — don't overwrite existing state
       if (state.bidsByCarId[carId] !== undefined) return {};
 
       return {

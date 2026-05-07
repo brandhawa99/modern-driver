@@ -14,8 +14,6 @@ export const Route = createFileRoute("/garage")({
 function RouteComponent() {
   const garageIds = useGarageStore((state) => state.garageIds);
   const garageCars = carsData.filter((c) => garageIds[c.id]);
-
-  // const avgValue = totalValue / garageCars.length
   return (
     <div className="w-full min-h-[calc(100vh-80px)]">
       {garageCars.length <= 0 ? (
