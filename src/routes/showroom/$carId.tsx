@@ -11,7 +11,6 @@ export const Route = createFileRoute("/showroom/$carId")({
 function RouteComponent() {
   const { carId } = Route.useParams();
   const { data, isPending, isError } = useCar(carId);
-  console.log({ data, isPending, isError });
 
   if (isError) {
     return <CarDetailPageError />;
