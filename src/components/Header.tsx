@@ -15,8 +15,8 @@ export default function Header() {
     <header className="bg-[--background]">
       <nav className="flex items-center justify-between py-4 px-2 md:px-8">
         <Link to="/">
-          <h1 className="font-bold bg-[--accent] text-[18px] md:text-2xl">
-            MODERN DRIVER
+          <h1 className="font-thin uppercase font-cormorant text-[18px] md:text-2xl">
+              Modern Driver
           </h1>
         </Link>
         <div className="flex  items-center gap-1 justify-center md:gap-2">
@@ -40,7 +40,7 @@ export default function Header() {
                       <Icon
                         weight={`${isActive ? "fill" : "regular"}`}
                         style={{ width: 24, height: 24 }}
-                        className="shrink-0"
+                        className="shrink-0 max-sm:inline hidden"
                       />
                       <span
                         className={cn(

@@ -118,7 +118,7 @@ const ActionSection = ({
   const label = isAuction ? "Current Bid" : "Price";
   const primaryValue = isAuction ? currentBid : price;
   return (
-    <CardAction className="w-full px-4 pb-4 pt-2 border-t border-border/50 flex flex-col gap-4">
+    <CardAction className="w-full px-4 pb-4 pt-2 border-t border-border/50 flex flex-col gap-4 justify-center">
       {/* Top row: pricing */}
       <div className="flex items-end justify-between">
         <div className="space-y-0.5">
@@ -126,28 +126,25 @@ const ActionSection = ({
             {label}
           </p>
           <p className="text-lg font-semibold leading-tight">
-            USD ${primaryValue?.toLocaleString()}
+            ${primaryValue?.toLocaleString()}
           </p>
         </div>
 
         {isAuction && (
-          <div className="rounded-2xl space-y-0.5 text-right bg-primary/80 p-2 ">
-            <p className=" text-white px-1 text-sm text-center">Has Reserve</p>
+          <div className="border border-foreground/30 rounded-full px-2 py-0.5">
+            <p className="text-foreground/60 text-xs tracking-widest text-center">Has Reserve</p>
           </div>
         )}
       </div>
 
-      {/* Bottom row: full-width CTA */}
-      <Button asChild className="w-full group" variant="outline">
-        <Link
-          className="relative flex w-full items-center justify-between"
-          to={isAuction ? "/auction/$carId" : "/showroom/$carId"}
-          params={{ carId: id }}
-        >
-          {isAuction ? "Bid Now" : "View Showroom"}
-          <ArrowRightIcon className="absolute right-5 size-4 shrink-0 transition-all duration-200 ease-out group-hover:translate-x-2" />
-        </Link>
-      </Button>
+      <Link
+        className="relative flex w-full items-center justify-between text-sm text-foreground/60 hover:text-foreground border border-foreground/20 hover:border-foreground/40 transition-all duration-300 py-2.5 px-4 rounded-full group"
+        to={isAuction ? "/auction/$carId" : "/showroom/$carId"}
+        params={{ carId: id }}
+      >
+        {isAuction ? "Bid Now" : "View Car"}
+        <ArrowRightIcon className="size-4 shrink-0 transition-transform duration-200 ease-out group-hover:translate-x-1" />
+      </Link>
     </CardAction>
   );
 };
@@ -165,7 +162,7 @@ const CarHeader = ({ year, make, model }: CarHeaderProps) => {
 type CountrySectionProps = Pick<Car, "countryCode" | "location">;
 const CountrySection = ({ location, countryCode }: CountrySectionProps) => {
   return (
-    <div className="text-sm flex items-center gap-2 leading-tight">
+    <div className="text-sm flex items-center gap-1 leading-tight">
       <img
         src={`https://flagsapi.com/${countryCode}/flat/24.png`}
         className="w-4 h-4 object-cover"

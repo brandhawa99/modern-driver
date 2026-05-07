@@ -9,7 +9,7 @@ function CarsSection() {
     <div className="w-full flex flex-col items-center mt-40 mb-40">
       <article className="flex flex-col justify-center max-w-5xl w-full">
         <motion.h1
-          className="text-4xl font-bold mb-10"
+          className="text-4xl font-thin font-cormorant mb-10"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
