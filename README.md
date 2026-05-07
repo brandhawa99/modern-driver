@@ -1,6 +1,6 @@
 # Modern Driver
 
-A curated classic car marketplace PWA — built with React, TypeScript, and Vite.
+A classic car like marketplace PWA — built with React, TypeScript, and Vite.
 
 **Live:** https://modern-driver.vercel.app
 
@@ -12,7 +12,7 @@ A curated classic car marketplace PWA — built with React, TypeScript, and Vite
 
 ## What it is
 
-A full-featured collector car platform with a real-time auction engine, virtual garage, and editorial content — styled as a luxury dark-mode PWA with gold accents and Cormorant Garamond typography. Installable, offline-capable, and built to production architectural standards throughout.
+A full-featured collector car platform with a real-time auction engine, virtual garage, and editorial content — styled as a luxury dark-mode PWA with a dark theme and green accents. Installable, offline-capable, and built to production architectural standards throughout.
 
 ---
 
