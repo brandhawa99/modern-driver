@@ -1,6 +1,6 @@
 # Modern Driver
 
-A classic car like marketplace PWA — built with React, TypeScript, and Vite.
+A collector car marketplace PWA — real-time auctions, virtual garage, editorial content, and full offline support.
 
 **Live:** https://modern-driver.vercel.app
 
@@ -12,32 +12,34 @@ A classic car like marketplace PWA — built with React, TypeScript, and Vite.
 
 ## What it is
 
-A full-featured collector car platform with a real-time auction engine, virtual garage, and editorial content — styled as a luxury dark-mode PWA with a dark theme and green accents. Installable, offline-capable, and built to production architectural standards throughout.
+A full-featured collector car platform built to production architectural standards. The focus is engineering discipline underneath the UI — deterministic state management, offline-first PWA behavior, and rendering stability under concurrent auction simulation.
+
+Installable on desktop and mobile. Fully functional offline after first visit.
 
 ---
 
 ## Features
 
-- **Real-time auction engine** — live bid feed with simulated competing bidders, reserve price logic, and per-car bid history that survives navigation
-- **Virtual Garage** — persistent save/remove with Zustand, O(1) lookup via `Record<string, boolean>`
-- **Showroom** — full catalogue with filtering
+- **Real-time auction engine** — live competing bidders, reserve price logic, per-car bid history that persists across navigation, confetti on bid placement
+- **Virtual Garage** — save and remove cars with Zustand, O(1) lookup via `Record<string, boolean>`, persisted across sessions
+- **Showroom** — full catalogue with filtering by make, category, condition, and price range
 - **Editorial** — featured articles with modal reader
-- **PWA** — installable, Service Worker, offline page, Workbox image caching
+- **PWA** — installable, Service Worker, offline fallback, Workbox runtime image caching
 
 ---
 
 ## Stack
 
-| Category         | Tech                            |
-| ---------------- | ------------------------------- |
-| Framework        | React + TypeScript + Vite       |
-| Routing          | TanStack Router                 |
-| Data fetching    | TanStack Query                  |
-| State management | Zustand                         |
-| Styling          | Tailwind CSS v4 + shadcn/ui     |
-| Animation        | Motion (formerly Framer Motion) |
-| PWA              | vite-plugin-pwa + Workbox       |
-| Deployment       | Vercel                          |
+| Category         | Tech                                           |
+| ---------------- | ---------------------------------------------- |
+| Framework        | React + TypeScript + Vite                      |
+| Routing          | TanStack Router                                |
+| Data fetching    | TanStack Query (`networkMode: "offlineFirst"`) |
+| State management | Zustand                                        |
+| Styling          | Tailwind CSS v4 + shadcn/ui                    |
+| Animation        | Motion (formerly Framer Motion)                |
+| PWA              | vite-plugin-pwa + Workbox                      |
+| Deployment       | Vercel                                         |
 
 ---
 
@@ -45,28 +47,32 @@ A full-featured collector car platform with a real-time auction engine, virtual 
 
 ### Auction state keyed per car
 
-Bid history and reserve status live in `Record<string, ...>` maps — `bidsByCarId`, `reserveMetByCarId` — rather than flat values. Navigation never resets an in-progress auction.
+Bid history and reserve status are stored in `Record<string, ...>` maps keyed by car ID. Navigation never resets an in-progress auction — each vehicle maintains independent state regardless of routing.
 
-The bid loop runs on recursive `setTimeout` and reads price with `useAuctionStore.getState()` inside the callback rather than closing over React state. This means every simulated bid is calculated off the true current price, not a stale snapshot from when the effect was registered. The obvious implementation with `useEffect` + closed-over state gets this wrong.
+The bid loop uses recursive `setTimeout` with `useAuctionStore.getState()` inside the callback. This ensures every simulated bid is calculated against the true current price rather than a value captured at effect registration time.
 
-**Zustand selector stability**
+### Zustand selector stability
 
-Selectors that return arrays use stable empty constants defined outside components:
+Selectors returning fallback arrays use stable constants defined outside components:
 
 ```ts
 const EMPTY_BIDS: Bid[] = [];
-// selector: state => state.bidsByCarId[carId] ?? EMPTY_BIDS
+const bids = useAuctionStore((state) => state.bids[carId] ?? EMPTY_BIDS);
 ```
 
-Inline `?? []` creates a new array reference on every render. Zustand's snapshot diffing sees it as changed, schedules a re-render, and you get an infinite loop. This is a non-obvious failure mode that only surfaces under specific selector patterns.
+An inline `?? []` creates a new array reference on every selector evaluation. Zustand compares snapshots by reference identity — a new reference every render means a detected change every render, which triggers another render. This produces an infinite loop that only surfaces during the brief window before auction state is initialized, making it easy to miss in development.
 
-**PWA cross-origin image caching**
+### TanStack Query with `networkMode: "offlineFirst"`
 
-Unsplash images are served with `crossOrigin="anonymous"`. Without it, the browser treats them as opaque responses — the Service Worker can store them but cannot inspect status codes, so Workbox's cache strategies refuse to cache them. `crossOrigin="anonymous"` makes the response transparent and cacheable.
+Mock data is wrapped in async functions with simulated latency, structurally identical to a real REST API. The default `networkMode: "online"` causes TanStack Query to pause queries when the browser reports no network connection — even when the query function doesn't touch the network. Setting `networkMode: "offlineFirst"` ensures queries always execute, which is correct behavior for a locally-resolved data layer.
 
-**TanStack Query over direct imports**
+### PWA cross-origin image caching
 
-Mock data is wrapped in async functions with simulated latency. The data layer is structurally identical to a real REST API — loading states, error boundaries, stale-while-revalidate, and cache invalidation all behave exactly as they would in production.
+Unsplash images use `crossOrigin="anonymous"`. Without it, the browser returns opaque responses — Workbox can store them but cannot inspect status codes, so its cache strategies reject them silently. `crossOrigin="anonymous"` makes responses transparent and cacheable. Images not yet cached on first visit fall back to a local placeholder rather than a broken image state.
+
+### Offline navigation
+
+`navigateFallback: "/index.html"` in the Workbox config ensures the Service Worker serves the app shell for any unrecognized navigation request. Without this, direct URL navigation while offline hangs indefinitely — the Service Worker has no instruction for routes it hasn't cached.
 
 ---
 
@@ -77,7 +83,7 @@ bun install
 bun run dev
 ```
 
-PWA features (Service Worker, offline mode, image caching) require a production build:
+PWA features require a production build:
 
 ```bash
 bun run build && bun run preview

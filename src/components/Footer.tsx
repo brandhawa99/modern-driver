@@ -1,6 +1,10 @@
 import { Link } from "@tanstack/react-router";
 import { Button } from "./ui/button";
-import { ArrowBendRightUpIcon } from "@phosphor-icons/react";
+import {
+  ArrowBendRightUpIcon,
+  GithubLogoIcon,
+  MailboxIcon,
+} from "@phosphor-icons/react";
 import ThemeSelector from "./ThemeSelector";
 
 export default function Footer() {
@@ -53,7 +57,21 @@ export default function Footer() {
           </Button>
           <ThemeSelector />
         </div>
-        <p className="">Baltej Randhawa</p>
+        <div className="flex flex-col items-end py-5">
+          <p className="">Baltej Randhawa</p>
+          <div className="flex gap-3 mt-2">
+            <a href="mailto:baltej.randhawa0@gmail.com">
+              <MailboxIcon size={28} />
+            </a>
+            <a
+              href="https://github.com/brandhawa99/modern-driver"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <GithubLogoIcon size={28} />
+            </a>
+          </div>
+        </div>
       </div>
     </footer>
   );
@@ -68,7 +86,7 @@ const FooterLink = ({
 }) => {
   return (
     <Link
-      className="font-heading text-5xl lg:text-7xl hover:text-muted-foreground font-light transition-all duration:300"
+      className="font-heading text-5xl lg:text-7xl hover:text-muted-foreground font-light transition-all duration:300 [&.active]:text-muted-foreground"
       to={to}
     >
       {children}

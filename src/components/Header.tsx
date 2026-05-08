@@ -45,7 +45,9 @@ export default function Header() {
                       <span
                         className={cn(
                           "hidden sm:inline",
-                          isActive && "font-bold",
+                          isActive
+                            ? "text-foreground font-medium"
+                            : "text-foreground/60",
                         )}
                       >
                         {link.name}
