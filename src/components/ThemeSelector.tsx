@@ -11,7 +11,7 @@ export default function ThemeSelector() {
   return (
     <Button
       variant="ghost"
-      className="rounded-full w-12 h-12"
+      className="rounded-full w-12 h-12 cursor-pointer"
       onClick={() => setTheme(theme == "light" ? "dark" : "light")}
       aria-label="theme toggle"
     >
