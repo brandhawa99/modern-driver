@@ -13,7 +13,7 @@ export default defineConfig({
       manifest: {
         name: "Modern Driver",
         short_name: "ModernDriver",
-        description: "Car News and Auction App v1.1.0",
+        description: "Car News and Auction App v1.2.0",
         display: "standalone",
         theme_color: "#0a0a0a",
         background_color: "#0a0a0a",
@@ -46,6 +46,9 @@ export default defineConfig({
         globPatterns: ["**/*.{js,css,html,ico,png,svg,woff2,webp}"],
         navigateFallback: "/index.html",
         navigateFallbackDenylist: [/^\/api/],
+        navigateFallbackAllowlist: [
+          /^(?!\/(.*\.(js|css|png|svg|webp|ico|woff2))).*$/,
+        ],
         runtimeCaching: [
           {
             urlPattern: ({ url }) => url.hostname === "flagsapi.com",
