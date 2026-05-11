@@ -20,11 +20,9 @@ function CTA() {
           alt="CTA Background"
         />
 
-        {/* Gradient overlay - stronger on left for text legibility */}
         <div className="absolute inset-0 rounded-2xl bg-linear-to-r from-black/70 via-black/40 to-transparent" />
         <div className="absolute inset-0 rounded-2xl bg-linear-to-t from-black/80 via-black/20 to-transparent" />
 
-        {/* Content */}
         <motion.div
           className="absolute inset-0 px-8 pb-10 md:px-16 md:pb-14 flex flex-col items-center justify-center text-center md:justify-between md:flex-row md:items-end md:text-left gap-6"
           initial={{ opacity: 0, y: 24 }}
